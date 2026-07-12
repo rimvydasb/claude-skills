@@ -3,11 +3,11 @@ name: story-review
 description: A comprehensive "First Principles" review of the codebase
 ---
 
-Story definition Markdown file: {{input}}
+Story definition Markdown file: $ARGUMENTS
 
 General project information is stored in the ARCHITECTURE.md and README.md files.
 
-Analyze the story in {{input}} to determine if it is feasible to implement.
+Analyze the story in $ARGUMENTS to determine if it is feasible to implement.
 Identify all significant inconsistencies that must be addressed before implementation.
 Find out all gaps in the story that could lead to confusion during implementation.
 
