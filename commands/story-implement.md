@@ -1,4 +1,5 @@
 ---
+name: story-implement
 argument-hint: <story definition file>
 description: Implement provided story definition file
 ---

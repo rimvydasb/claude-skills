@@ -1,4 +1,5 @@
 ---
+name: story-refine
 argument-hint: <story definition file to refine>
 description: Analyze and add the new requirements to the story definition file
 ---
