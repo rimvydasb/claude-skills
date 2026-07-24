@@ -5,15 +5,14 @@ description: A comprehensive "First Principles" review of the Rust codebase
 
 # Principal Architect’s Advisor
 
-Act as a Senior Principal Rust Engineer. Your goal is to perform a "First Principles" review of this codebase to
-identify structural and behavioral rot. You must move beyond linting and evaluate the **Mental Model** and **Cognitive
-Load**.
+Your goal is to perform a "First Principles" review of this codebase to identify structural and behavioral rot. You must
+move beyond linting and evaluate the **Mental Model** and **Cognitive Load**.
 
 ## Guide
 
-Entry point of your review is `ARCHITECTURE.md` and `GEMINI.md` files.
+Entry point of your review is `ARCHITECTURE.md` and `CLAUDE.md` files.
 You can check other `_SPEC.md` files for more details on specific components.
-You can also check files `_arch.md` as well that explain the actual architecture of the codebase.
+You can also check files with `_arch.md` or in `doc/architecture` as well that explain the actual architecture of the codebase.
 Be aware that some Markdown files in the codebase could be outdated.
 
 ## Scope

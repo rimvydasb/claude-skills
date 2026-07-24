@@ -12,13 +12,16 @@ specification document that can be used for future reference and understanding o
    are matching the implementation.
 2. Preserve all document tree structures that explain how packages and files are organized in the project. Check those
    structures and make sure they are matching the implementation.
-3. Remove all completed tasks and low level implementation details from the story definition file. The specification
+3. Preserve "next steps", "open questions", "future improvements" if any exists.
+4. Remove all completed tasks and low level implementation details from the story definition file. The specification
    document should focus on describing the feature, its purpose, and how it works.
-4. Check if this specification document is consistent with the actual code and architecture document. If there are any
+5. Check if this specification document is consistent with the actual code and architecture document. If there are any
    inconsistencies, update the specification document to reflect the actual implementation.
-5. If there are any definitions of object models or data structures in the form of the code, add links to the actual
+6. If there are any definitions of object models or data structures in the form of the code, add links to the actual
    code files where those models or structures are defined and implemented.
-6. Rename the file `$ARGUMENTS` that ends with `_STORY.md` to `_SPEC.md` to indicate that it is now a specification
+7. The specification content must be clear, concise, and easy to understand and structure. You can aggregate, summarize
+   and organize the content to bring clarity.
+8. Rename the file `$ARGUMENTS` that ends with `_STORY.md` to `_SPEC.md` to indicate that it is now a specification
    document.
 
 > We're in development phase, we're not documenting any old feature. Pay attention to everywhere where we mention words
