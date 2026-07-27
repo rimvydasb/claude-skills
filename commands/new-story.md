@@ -1,18 +1,20 @@
 ---
 name: new-story
 description: Creates the new story file for the new feature
+argument-hint: <subject of the story>
 ---
 
 Analyze the following user story definition:
-{{input}}
+$ARGUMENTS
 
-1. Create thew new story file under `docs/` with the name `NEW_FEATURE_STORY.md` where instead of NEW_FEATURE you will
+1. Review the existing documentation regarding the subject user provided.
+2. Create thew new story file under `docs/` with the name `NEW_FEATURE_STORY.md` where instead of NEW_FEATURE you will
    use the name of the feature in uppercase and with underscores instead of spaces.
-2. Check existing `ARCHITECTURE.md` document - it could be that this story will require to update the architecture
+3. Check existing `ARCHITECTURE.md` document - it could be that this story will require to update the architecture
    document with new components, services, or interactions.
-3. Perform the necessary updates to the `ARCHITECTURE.md` document if needed, ensuring that all new components,
+4. Perform the necessary updates to the `ARCHITECTURE.md` document if needed, ensuring that all new components,
    services, and interactions are accurately represented in the structural and behavioral diagrams.
-4. At the bottom of this story document write down the plan using the template below. You can split the implementation
+5. At the bottom of this story document write down the plan using the template below. You can split the implementation
    in phases if needed, but each phase must be complete in the terms that after each phase all tests passes and
    application can be started.
 
@@ -57,6 +59,7 @@ Analyze the following user story definition:
 **Tips while writing a story:**
 
 - Use Mermaid diagrams if needed
+- Prioritise Markdown tables and lists, and Mermaid diagrams over textual descriptions everywhere possible
 - If the story is about changing structure, add a structural diagram
 - If the story involves changing the sequence of actions, add a behavioral diagram
 - You're allowed to say that you do not know something if you're unsure

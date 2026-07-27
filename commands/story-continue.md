@@ -31,8 +31,10 @@ General project information is stored in the ARCHITECTURE.md and README.md files
     - High level structural diagram is defined using component diagrams. Component diagram uses high level components
       and
       their dependencies. Use boundaries to show isolated systems, namespaces, packages or even higher level components.
-2. Prioritize Markdown tables where you need to describe a list of items with more than 2 attributes. Use tables instead
-   of bullet lists if you need to describe more than 2 attributes for each item.
+2. Prioritize Markdown tables where you need to describe a list of items with more than 2 attributes (numbering does not
+   count). Use tables instead of bullet or number lists if you need to describe more than 2 attributes for each item,
+   for example name, value and description (3 attributes). If you find a table that has 2 meaningfull attributes,
+   convert it to the numbered or bullet list.
 3. For simple listing and describing components, use bullet lists. Use bullet lists instead of tables if you need to
    describe 2 or fewer attributes for each item.
 4. TypeScript component API is defined directly within TypeScript by defining TypeScript interfaces and types. For
@@ -46,11 +48,17 @@ interface MyNewComponent {
 }
 ```
 
+5. Do not mention `previously it was`, `in the past we used, to` or `is carried over unchanged` in the story definition.
+   The story definition is about the current state and the future state, not about the past.
+   Catch words such as `legacy`, `old`, `deprecated` - they are not allowed, and it is possible we do not need such an
+   information. However, in final comment it is good if you mention what you changed, but in the spec, you must
+   concentrate in the future state.
+
 ## Markdown special notation:
 
 - `> Todo:` - indicates a task that needs to be done.
-- `>` - indicates architect notes or comments for you to pay attention to. If not relevant or mitigated, you can delete
-  them.
+- `> Architect notes:` - indicates architect notes or comments for you to pay attention to. If not relevant or
+  mitigated, you can delete them.
 - `[ ]`, `[x]` - indicates a checkbox for a task that needs to be done. All tasks that needs to be done must use
   checkboxes to track the progress. Each new specification or story topic better have very brief tasks lists with
   checkboxes that can help us to indicate if the following story topic is implemented.
