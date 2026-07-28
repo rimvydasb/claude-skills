@@ -3,7 +3,7 @@
     "MAX_THINKING_TOKENS": "32000",
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "0"
   },
-  "model": "opus",
+  "model": "sonnet",
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true
   },
