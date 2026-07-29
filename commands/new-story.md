@@ -56,12 +56,6 @@ $ARGUMENTS
 
 ---
 
-**Tips while writing a story:**
+**Specification writing principles are here, load this file:**
 
-- Use Mermaid diagrams if needed
-- Prioritise Markdown tables and lists, and Mermaid diagrams over textual descriptions everywhere possible
-- If the story is about changing structure, add a structural diagram
-- If the story involves changing the sequence of actions, add a behavioral diagram
-- You're allowed to say that you do not know something if you're unsure
-- At the end of the story, add open questions as `## One Questions` if there are major concerns about the success of the
-  story
+@~/.claude/commands/_spec-practices.md
