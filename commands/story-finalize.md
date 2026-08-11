@@ -48,6 +48,9 @@ skip the cross-document dedup pass.
 - Flag and fix inconsistencies between the two documents where you have enough context to resolve them confidently (e.g.
   a field name that doesn't match between schema and architecture doc, a component name used two different ways). If
   you're not confident which version is correct, leave a `<!-- TODO: confirm X vs Y -->` comment instead of guessing.
+- Do not use sloppy or imprecise language like "basically", "kind of", "sort of", "a little bit", "somewhat", "maybe",
+  "probably", "might", "could", "should", "plumbing", "harness", "harnessing", "glue", "thing", "stuff", "etc." - all
+  these words are vague and unprofessional. Replace them with precise, factual language.
 
 ## Fix 3 — Heading and paragraph style
 
