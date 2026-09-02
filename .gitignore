@@ -12,3 +12,7 @@ shell-snapshots
 tasks
 history.jsonl
 plans
+.last-cleanup
+.last-update-result.json
+chrome
+stats-cache.json
