@@ -1,7 +1,8 @@
 ---
 name: architecture-refine
-description: Refines and finalizes the architecture document to me in align with documentation standards
+description: Refines an architecture document in the given scope to the documentation standard - Simplified Technical English, diagrams and tables instead of prose, Open Questions, and an Architectural Decisions Record.
 argument-hint: <scope, file or directory>
+disable-model-invocation: true
 ---
 
 # Architecture Refining and Finalisation
@@ -35,7 +36,7 @@ You are allowed writing Markdown lists for:
 2. Elements with their descriptions - use `1. **Element:** description...`
 3. Questions: `1. Question`
 
-If you see that elements have more a
+If you see that elements have more attributes than a name and a description, use a Markdown table instead of a list.
 
 **Thinking:**
 

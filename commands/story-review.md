@@ -1,66 +1,104 @@
 ---
 name: story-review
-description: A comprehensive "First Principles" review of the codebase
+description: Reviews a story definition file against the codebase and docs/architecture.md, fixes minor gaps, completes Todo/TBC placeholders, applies architect answers, and records significant gaps as Open Questions with resolution options. Edits only the story file.
+argument-hint: <story definition file>
+disable-model-invocation: true
 ---
 
-Story definition Markdown file: $ARGUMENTS
+# Story Review
 
-General project information is stored in the ARCHITECTURE.md and README.md files.
+Story definition Markdown file: `$ARGUMENTS`
 
-Analyze the story in $ARGUMENTS to determine if it is feasible to implement.
-Identify all significant inconsistencies that must be addressed before implementation.
-Find out all gaps in the story that could lead to confusion during implementation.
+Project context:
 
-You will work based on industry standards, the best Rust, TypeScript, Node.js, React, and Next.js practices, and
-project priorities defined in ARCHITECTURE.md.
+- `docs/architecture.md` and `README.md` describe the project.
+- `CLAUDE.md`, `AGENTS.md` or `GEMINI.md` (if present) define project priorities and conventions (for example, WASM
+  binary size before performance).
 
-**Step 1: Get familiar with the actual code versus story definition file**
+The result of this review is an updated story file that can be implemented without confusion. The architect reads the
+`## Open Questions` section and answers the questions in the story file.
 
-Before starting the review, check whether the story definition file is up to date with the actual code. If the
-story definition file is outdated and contains completed tasks; mark those tasks as completed.
+## Constraints
 
-**Step 2: Clarify minor inconsistencies by your own knowledge**
+- Edit only `$ARGUMENTS`. Do not modify code, tests, or `docs/architecture.md`. If the story requires architecture
+  changes, describe them in the story. `docs/architecture.md` is updated only after the story is approved and
+  implemented.
+- Do not lose important information. Make precise, minimal edits; rephrasing and reordering for clarity is allowed.
+- We are in the development phase: backward compatibility is not required, and architectural changes are allowed when
+  backed by a clear reason.
 
-If clear and minor misalignment or inconsistencies are found, you can fix the story definition file by yourself
-without asking questions. Do not lose important information, do a precise and minimal update to the story document, but
-feel free to rephrase or rearrange the story definition to make it clearer and more consistent.
+## Steps
 
-**Step 3: Clean up answered questions and add clarifications**
+**Step 1: Compare the story with the code**
 
-If the architect already replied to some open questions or the architect left his notes in the story definition file,
-review those answers and update the actual story definition file where needed. You can also add clarifications (notes)
-Markdown section `>` if needed to keep clarifications provided by those architect answers or notes. Remove answered
-questions if they're answered.
+Check whether the story is up to date with the code. Mark a task `- [x]` only when you have located the code that
+implements it (and the tests, where the task requires tests). If you are not sure, leave the task unchecked. In your
+final message to the user, list each task you marked with the file path that proves it.
 
-**Step 4: Find remaining inconsistencies, blockers and gaps**
+**Step 2: Apply architect answers and notes**
 
-Review "Open Questions" section if related inconsistency still exists. Update existing "Open Questions" if related
-issues still remain. Add "Open Questions" section if it does not exist. Find out and list all significant
-inconsistencies and gaps that must be resolved before the implementation. If it is possible, provide options on how to
-resolve each inconsistency or gap.
+- Review answers the architect wrote under `## Open Questions` and in `> Architect notes:` blocks.
+- Incorporate each answer into the relevant story section. Add a `> Clarification:` note where the reasoning must be
+  kept.
+- Remove answered questions and addressed architect notes.
 
-# Notes
+**Step 3: Fix minor gaps and complete placeholders**
 
-1. Note that the architect might not be aware of the alternative solutions. This is very important if you already know
-   A better architectural pattern, a better and clearer mental model that we can follow.
-2. Note that the architect, who writes the story definition, might not be aware of all the best practices. Also, know
-   that the architect works in a narrow domain and might not be familiar with the best industry practices.
-3. The goal is to make this story definition file as clear and consistent as possible, so that the implementation can be
-   done without any confusion or misunderstandings and successfully as planned.
-4. You are allowed to be critical and point out any inconsistencies or gaps you find - the author will be very glad if
-   you correct him where really needed, for the sake of the story's success, rather than blindly agreeing with the story
-   definition.
-5. Note that we’re in the development phase; we do not have any obligation to maintain backward compatibility, and we’re
-   allowed to make architectural changes if they're backed by a good reason.
+- Fix clear, minor inconsistencies directly, without asking questions.
+- Find `Todo`, `TODO`, `TBC` and `> Todo:` placeholders. Complete those you can resolve from the code, the documentation,
+  and the story. Turn the rest into Open Questions.
 
----
+**Step 4: Record significant gaps as Open Questions**
 
-Template:
+- Re-check existing Open Questions: remove those that no longer apply, update those that remain.
+- Add each significant inconsistency, blocker, or gap that must be resolved before implementation. Create the
+  `## Open Questions` section if it does not exist.
+- Each question references the story section (and the code file, where relevant) it is about, and offers resolution
+  options where possible.
+- Report only real problems. If the story is ready for implementation, say so. Do not invent questions to fill the
+  section.
 
+## Review Standard
+
+- Apply industry standards and current best practices for the project's languages and frameworks, weighed against the
+  project priorities.
+- The architect works in a narrow domain and may not know alternative solutions or best practices from other areas. If
+  you know a better architectural pattern or a clearer mental model, propose it as an Open Question with options.
+- Be critical. Do not agree with the architect's ideas by default; the architect wants to be corrected where the story
+  would fail.
+- A decision that increases complexity or cognitive load can be correct when it serves a higher project priority (for
+  example, WASM size or performance). Make such trade-offs explicit instead of rejecting them.
+
+## Story Conventions
+
+- `> Todo:` - a task that needs to be done.
+- `> Architect notes:` - notes for you to pay attention to. Delete them when addressed or no longer relevant.
+- `- [ ]`, `- [x]` - task checkboxes. Every story topic that needs implementation has a brief checkbox task list to
+  track progress.
+- TypeScript component APIs are defined as TypeScript interfaces and types, for example:
+
+```typescript
+interface MyNewComponent {
+    setName(name: string): boolean; // description of the method
+    name: string; // description of the property
+    // ...
+}
+```
+
+## Open Questions Template
+
+```markdown
 ## Open Questions
 
-1. **Short title of the inconsistency or gap**: detailed description of the inconsistency or gap.
+1. **Short title of the inconsistency or gap**: detailed description, with the story section and code file it refers to.
    Question to address: question that must be answered to resolve the inconsistency or gap.
    Option 1: possible way to resolve the inconsistency or gap.
    Option 2: another possible way to resolve the inconsistency or gap.
 2. ...
+```
+
+---
+
+**Specification writing principles are here, load this file:**
+
+@~/.claude/commands/_spec-practices.md

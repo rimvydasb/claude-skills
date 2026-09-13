@@ -1,16 +1,17 @@
 ---
 allowed-tools: Bash, Read, Glob, Grep
 argument-hint: <question about the repository>
-description: Analyzes the repository and produces a Markdown explanation with Mermaid diagrams
+description: Answers a question about how the current repository works by tracing the relevant code, and saves a Markdown explanation with Mermaid diagrams to docs/explain/. Use when the user asks how a feature, flow, or module in this repository works.
 ---
 
-You are a senior software architect. Answer the following question about this repository:
+Answer the following question about this repository. The answer is read by a developer who needs to understand this part
+of the codebase, so ground every statement in files you have read:
 
 > $ARGUMENTS
 
 ## Instructions
 
-1. **Read Basic Documents** - Find `ARCHITECTURE.md` in `docs/` or `README.md` in root to get familiar with the purpose
+1. **Read Basic Documents** - Read `docs/architecture.md` and `README.md` in root to get familiar with the purpose
    of the project
 2. **Explore structure first** — run `tree -L 4 --gitignore` and read `package.json` / `pom.xml` / `build.gradle` /
    `pyproject.toml` (whichever applies). Do not guess file contents.

@@ -1,6 +1,8 @@
 ---
 name: story-finalize
-description: Use this skill when finalizing technical design documents (architecture specs, schema docs, API specs) before they're considered done. Triggers on requests like "finalize this doc", "clean up this spec for final review", or "prepare this design doc for sign-off". Removes redundancy, fixes unprofessional wording, validates diagrams, and enforces a consistent structural style across a set of related documents. Not for first-draft writing — this is a polish/audit pass on existing content.
+description: Polishes one or more related technical design documents (architecture, schema, API specs) for final sign-off - removes cross-document duplication and imprecise wording, validates Mermaid diagrams, and enforces a consistent structure. An editing pass on existing content, not first-draft writing.
+argument-hint: <design documents to finalize>
+disable-model-invocation: true
 ---
 
 # Story Finalize

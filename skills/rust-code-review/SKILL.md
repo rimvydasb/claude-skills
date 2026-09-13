@@ -1,26 +1,31 @@
 ---
 name: rust-code-review
-description: A comprehensive "First Principles" review of the Rust codebase
+description: First-principles review of Rust code for structural and behavioral problems, with a focus on WASM binary size and stack usage. Produces a _REVIEW.md report in docs/ with Mermaid diagrams, verified findings, and a refactoring roadmap. Use when the user asks to review Rust modules, crates, or Rust architecture.
+argument-hint: <file, module, or directory to review>
+context: fork
 ---
 
-# Principal Architect’s Advisor
+# Rust First-Principles Review
 
-Your goal is to perform a "First Principles" review of this codebase to identify structural and behavioral rot. You must
-move beyond linting and evaluate the **Mental Model** and **Cognitive Load**.
+Review the Rust code in scope to identify structural and behavioral rot. Move beyond linting and evaluate the **Mental
+Model** the code expresses and the **Cognitive Load** it puts on a developer.
 
-## Guide
-
-Entry point of your review is `ARCHITECTURE.md` and `CLAUDE.md` files.
-You can check other `_SPEC.md` files for more details on specific components.
-You can also check files with `_arch.md` or in `doc/architecture` as well that explain the actual architecture of the codebase.
-Be aware that some Markdown files in the codebase could be outdated.
+The report is read by the developers who own this code. They use it to decide what to refactor, so findings must be
+real, located in the code, and ordered by impact.
 
 ## Scope
 
-You will not write executable during this review for this codebase. You can write Markdown file and code snippets in
-Markdown file if needed. You review file will end `_REVIEW.md` suffix.
+$ARGUMENTS
 
-Your scope is {{scope}}.
+Do not modify source code during this review. Write the review as a Markdown file (code snippets inside it are allowed)
+and save it as `docs/<scope-slug>_REVIEW.md`, where `<scope-slug>` is a short kebab-case name of the scope.
+
+## Context
+
+- Start with `docs/architecture.md` and `CLAUDE.md`.
+- Check `*_SPEC.md` files in `docs/` for details on specific components.
+- Some Markdown files may be outdated. When a document and the code disagree, the code is the fact; report the
+  disagreement as a finding.
 
 ## Goal
 
@@ -35,12 +40,12 @@ Before proposing changes, perform a deep-dive analysis:
    and dependency flow. Identify "God Objects" or circular dependencies.
 2. **Behavioral Trace:** Identify the core state transitions. Use a **Mermaid `stateDiagram`** to show how the system
    moves from one valid state to another.
-3. **Mental Model Consistency:** Does the naming and module structure map 1:1 to the business domain, or is there a "
-   Cognitive Gap" between the code and the intended architecture?
+3. **Mental Model Consistency:** Does the naming and module structure map 1:1 to the business domain, or is there a
+   "Cognitive Gap" between the code and the intended architecture?
 
 ### Phase 2: First Principles Skeptical Review
 
-Analyze the findings from Phase 1 through these five critical lenses:
+Analyze the findings from Phase 1 through these seven critical lenses:
 
 1. **Logic Fragility:** Where does the logic break? Identify edge cases currently unhandled or silently ignored (e.g.,
    partial writes, unhandled async cancellations, or `unwrap()` calls).
@@ -52,18 +57,22 @@ Analyze the findings from Phase 1 through these five critical lenses:
    well-founded for a SOTA Rust system?
 5. **Cognitive Load:** Identify functions or modules with high cyclomatic complexity. Where is the "Mental Model" most
    likely to collapse for a new developer?
-6. **Code Smell:** Identify code places where code behavioral does not meet the code expression or code simply looks
-   suspicious. Continue to investigate such places and find out if the code does not hide serious bugs, design flaws, or
-   code simply become detached from the intended architecture.
+6. **Code Smell:** Identify places where the code behavior does not match what the code expresses, or where the code
+   looks suspicious. Investigate each such place and find out whether it hides a bug, a design flaw, or a detachment
+   from the intended architecture.
 7. **WASM Memory & Stack Profiling:** Where does this code allocate on the heap (`Box`, `Vec`, `String`) when a
    stack-allocated or zero-copy alternative (e.g., `&str`, slices) would suffice? Identify recursive functions or deep
    call chains that threaten the WASM stack limit.
 
-### Analysis Process
+### Evidence Rules
 
-Before outputting Phase 3, you must explicitly write out your step-by-step reasoning using a `<thought_process>` block.
-In this block, map out the data flow from the entry point, calculate potential failure points, and weigh the trade-offs
-between WASM size vs. cognitive load for the specific modules you are reviewing.
+- Every finding cites the file and line (`src/module.rs:42`) and names the code construct involved.
+- Before reporting a finding, re-read the code and its callers to confirm it. Check for handling elsewhere: a caller
+  that validates, a type that makes the state impossible, a test that covers the edge case. If you cannot confirm the
+  finding, drop it, or mark it **Suspected** and state what must be checked.
+- Report a WASM size or stack concern only when you can name the concrete construct (the generic, the `format!` call,
+  the recursive function). Do not state byte sizes you have not measured.
+- If a lens has no real findings, say so in one line. Do not pad a lens to fill the report.
 
 ### Phase 3: Summary and Recommendations
 
@@ -102,4 +111,4 @@ Do NOT suggest standard SOTA patterns if they introduce binary bloat. Specifical
   WASM-friendly alternatives.
 
 **Output Requirements:** Developer-to-developer, direct, and skeptical. No sales fluff. If the current architecture is
-fundamentally flawed, say so. Save to markdown file.
+fundamentally flawed, say so.

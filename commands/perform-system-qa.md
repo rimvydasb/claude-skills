@@ -1,15 +1,19 @@
 ---
 name: perform-system-qa
-description: Perform a comprehensive Test Gap Analysis on the provided source code/specification and existing test suite.
+description: Performs a test gap analysis of source code, specification, and the existing test suite across functional edge cases, unit/integration coverage, security, load/concurrency, and exploratory vectors, and writes a report of verified gaps with test case specifications to docs/qa/.
 argument-hint: <scope or story documentation file>
+disable-model-invocation: true
+context: fork
 ---
 
-# Role & Task
+# Test Gap Analysis
 
-You are a Senior Principal QA Architect, Security Engineer, and Chaos Testing Specialist. Your task is to perform an
-exhaustive Test Gap Analysis on the provided source code/specification and existing test suite. You must identify
-unhandled edge cases, functional gaps, security/penetration risks, load/stress limitations, and unstructured exploratory
-test vectors.
+Analyze the source code, specification, and existing test suite in scope. Identify unhandled edge cases, functional
+gaps, security and penetration risks, load and stress limitations, and exploratory test vectors that the current tests do
+not cover.
+
+The report is read by the engineers who own this code. They use it to decide which tests to write next, so every gap
+must be real, located in the code, and specific enough to turn into a test.
 
 ---
 
@@ -19,9 +23,9 @@ $ARGUMENTS
 
 ---
 
-## Instructions & Analysis Framework
+## Analysis Framework
 
-Execute your analysis systematically across the following 5 dimensions. Do not skip any dimension.
+Analyze the scope across the following 5 dimensions.
 
 ### 1. Functional & Boundary Edge Cases
 
@@ -57,10 +61,24 @@ Execute your analysis systematically across the following 5 dimensions. Do not s
 
 ---
 
+## Evidence Rules
+
+* Base every gap on code you have read. Cite the file and line (`path/to/file.ts:42`) of the untested behavior.
+* Before reporting a gap as untested, search the test suite for existing coverage (test names, the function name, the
+  input case). If a test covers it, drop the gap.
+* Report a security, load, or concurrency risk only when you can describe the concrete code path that makes it
+  possible. Do not list generic risks that apply to any system.
+* Assign each gap a confidence: **Confirmed** (you traced the code path and found no covering test) or **Suspected**
+  (plausible, needs a check). List Suspected gaps after Confirmed gaps.
+* Cover all 5 dimensions. If a dimension has no real gaps or does not apply to the scope, write one line saying so. Do
+  not pad the report.
+
+---
+
 ## Output Format Requirements
 
-Write down 'doc/qa/issues-report_{scope}.md' in Markdown format. 
-Produce your response strictly using the following Markdown template:
+Save the report as `docs/qa/test-gap-analysis_<scope-slug>.md`, where `<scope-slug>` is a short kebab-case name of the
+scope. Use the following Markdown template:
 
 ### Executive Summary
 
@@ -68,10 +86,10 @@ A concise 2-3 sentence overview of the test coverage health and the highest crit
 
 ### Priority Gap Matrix
 
-| Category  | Missing Scenario / Edge Case | Risk Level (Critical/High/Med/Low) | Impact     | Recommended Test Type (Unit/Integration/Pen/Stress) |
-|:----------|:-----------------------------|:-----------------------------------|:-----------|:----------------------------------------------------|
-| Edge Case | *[Brief Description]*        | High                               | *[Impact]* | Unit                                                |
-| Security  | *[Brief Description]*        | Critical                           | *[Impact]* | Penetration                                         |
+| Category  | Missing Scenario / Edge Case | Evidence (file:line)  | Confidence (Confirmed/Suspected) | Risk Level (Critical/High/Med/Low) | Impact     | Recommended Test Type (Unit/Integration/Pen/Stress) |
+|:----------|:-----------------------------|:----------------------|:---------------------------------|:-----------------------------------|:-----------|:----------------------------------------------------|
+| Edge Case | *[Brief Description]*        | `src/foo.ts:42`       | Confirmed                        | High                               | *[Impact]* | Unit                                                |
+| Security  | *[Brief Description]*        | `src/auth/guard.ts:7` | Suspected                        | Critical                           | *[Impact]* | Penetration                                         |
 
 ### Detailed Test Case Scenarios
 
@@ -81,6 +99,8 @@ For each key gap identified, provide a concrete test case specification in this 
 
 * **Target Component/Method:**
 * **Category:** [Functional Edge Case | Security / Pen | Stress / Load | Exploratory]
+* **Evidence:** file:line and the code path involved; the test files searched for existing coverage
+* **Confidence:** [Confirmed | Suspected — what must be checked]
 * **Preconditions / Setup:**
 * **Test Input / Action:**
 * **Expected Result:**

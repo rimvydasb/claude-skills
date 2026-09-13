@@ -1,22 +1,23 @@
 ---
 name: new-story
-description: Creates the new story file for the new feature
+description: Creates a new story definition file in docs/ for a feature, with a technical breakdown, proposed architecture changes, and a phased task plan. Does not modify docs/architecture.md.
 argument-hint: <subject of the story>
+disable-model-invocation: true
 ---
 
 Analyze the following user story definition:
 $ARGUMENTS
 
-1. Review the existing documentation regarding the subject user provided.
-2. Create thew new story file under `docs/` with the name `NEW_FEATURE_STORY.md` where instead of NEW_FEATURE you will
+1. Review the existing documentation regarding the subject the user provided.
+2. Create the new story file under `docs/` with the name `NEW_FEATURE_STORY.md` where instead of NEW_FEATURE you will
    use the name of the feature in uppercase and with underscores instead of spaces.
-3. Check existing `ARCHITECTURE.md` document - it could be that this story will require to update the architecture
-   document with new components, services, or interactions.
-4. Perform the necessary updates to the `ARCHITECTURE.md` document if needed, ensuring that all new components,
-   services, and interactions are accurately represented in the structural and behavioral diagrams.
-5. At the bottom of this story document write down the plan using the template below. You can split the implementation
-   in phases if needed, but each phase must be complete in the terms that after each phase all tests passes and
-   application can be started.
+3. Read `docs/architecture.md`. Identify the new or changed components, services, and interactions that this story
+   requires.
+4. Describe those changes in the story's `## Architecture Changes` section, with structural and behavioral diagrams
+   where needed. Do not modify `docs/architecture.md`: it describes approved and implemented architecture only. The
+   story's final phase contains the task to update it.
+5. Write the story using the template below. You can split the implementation into phases if needed, but each phase
+   must be complete in the terms that after each phase all tests pass and the application can be started.
 
 ```text
 # Story Name
@@ -28,6 +29,8 @@ $ARGUMENTS
 ### Structural Diagram (optional)
 
 ### Behavioral Diagram (optional)
+
+## Architecture Changes (optional)
 
 ## Out of Scope (optional)
 
@@ -47,6 +50,7 @@ $ARGUMENTS
 
 **Phase X:**
 
+- [ ] Update `docs/architecture.md` with the changes from `## Architecture Changes` (if any)
 - [ ] Update required documentation after the implementation is complete
 - [ ] Ensure new tests are added for the new feature and all tests are passing
 - [ ] Perform linting and formatting to maintain code quality and consistency

@@ -1,6 +1,8 @@
 ---
 name: story-to-spec
-description: Rewrite story document into a specification document
+description: Rewrites an implemented story definition file into a specification document that matches the code, and renames it from _STORY.md to _SPEC.md.
+argument-hint: <implemented story definition file>
+disable-model-invocation: true
 ---
 
 Story definition Markdown file is: `$ARGUMENTS`
@@ -20,7 +22,7 @@ can be used for future reference and understanding of the feature.
    document should focus on describing the feature, its purpose, and how it works. There is no need to explain already
    obvious implementation details or easily discoverable aspects from the code itself. It is well accepted that user who
    will read this spec, will need to check the actual implementation to discover low level details.
-5. Check if this specification document is consistent with the actual code and architecture document. If there are any
+5. Check if this specification document is consistent with the actual code and `docs/architecture.md`. If there are any
    inconsistencies, update the specification document to reflect the actual implementation. The source of truth is the
    implementation code and test cases.
 6. If there are any definitions of object models or data structures in the form of the code (`interface`, `class`,

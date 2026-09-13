@@ -1,7 +1,8 @@
 ---
 name: documentation-clean-up
-description: Cleans up the documentation files and ensures they are consistent with the current state of the codebase
+description: Cleans up documentation and code comments in the given scope - removes outdated, duplicated, and reviewer-directed text, moves design reasoning to docs/architecture-adr.md, and rewrites documentation in Simplified Technical English.
 argument-hint: <scope, file or directory>
+disable-model-invocation: true
 ---
 
 # Documentation Clean-Up
@@ -20,7 +21,7 @@ $ARGUMENTS
 
 **Setup:**
 
-- [ ] Create `docs/architecture-adr.md` directory if it does not exist.
+- [ ] Create the `docs/architecture-adr.md` file if it does not exist.
 
 **Refine all code comments in specified scope based on following rules:**
 
@@ -48,4 +49,9 @@ $ARGUMENTS
 
 **Comments Style Rules:**
 
-- [ ] Use `//` for single-line comments
+- [ ] Use `//` for single-line comments.
+- [ ] Use consecutive `//` lines instead of `/* */` blocks for multi-line implementation comments.
+- [ ] Use doc comments (`/** */` in TypeScript/JavaScript, `///` in Rust) only for public API documentation.
+- [ ] Place a comment on the line above the code it describes.
+- [ ] Use one consistent comment style within a file: start with a capital letter, write complete sentences in doc
+  comments.
