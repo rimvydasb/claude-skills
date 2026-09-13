@@ -18,25 +18,34 @@ $ARGUMENTS
 
 ## Tasks
 
-- [ ] **Setup:**
-    - [ ] Create `docs/architecture-adr.md` directory if it does not exist.
+**Setup:**
+
+- [ ] Create `docs/architecture-adr.md` directory if it does not exist.
 
 **Refine all code comments in specified scope based on following rules:**
 
-- [ ] Refine comments in the way that they state facts verifiable from code in this file, or reference another file by
-  path.
-- [ ] Eliminate forbidden comments: 
-  - what the code does not do; 
-  - what it used to do; 
-  - alternatives considered and rejected; 
-  - restatements of the identifier name; 
-  - anything addressed to the reviewer ("note that", "as requested", "this is deliberate").
-- [ ] Move reasoning, background information, and rejected alternatives to `architecture-adr.md`.
+- [ ] Eliminate the following forbidden statements, sentences and text fragments that:
+    - explains what the code does not do;
+    - explains what the code what it used to do before;
+    - alternatives considered and rejected, that are not implemented with the code;
+    - restatements of the identifier name;
+    - anything addressed to the reviewer ("note that", "as requested", "this is deliberate"). All of this information is
+      not needed in the code comments and should be removed.
+
+- [ ] Move reasoning, background information, and rejected alternatives to `docs/architecture-adr.md`.
 - [ ] Eliminate duplicated information.
 - [ ] Aggregate code comments if it helps to reduce the amount of text and improve clarity.
+- [ ] Leave the information that is non-obvious and is not quickly discoverable from the code itself.
+- [ ] Find out if the code comment holds important information or is just an internal reasoning that does not have any
+  value for the reader. If it is just an internal reasoning that was done by the implementing agent, eliminate that code
+  comment.
 
 **Refine documentation in the specified scope based on following rules:**
 
 - [ ] Rewrite documentation and comments in AECMA Simplified English, now ASD-STE100 Simplified Technical English (STE)
 - [ ] Eliminate duplicated information.
 - [ ] Aggregate information if it helps to reduce the amount of text and improve clarity.
+
+**Comments Style Rules:**
+
+- [ ] Use `//` for single-line comments
