@@ -10,8 +10,8 @@ Story definition Markdown file is: `$ARGUMENTS`
 This is implemented and well tested. The goal is to rewrite the story definition file into a specification document that
 can be used for future reference and understanding of the feature.
 
-1. Preserve all Markdown diagrams if they exist in the story definition file. Check if those diagrams matching the
-   implementation.
+1. Preserve all Mermaid diagrams if they exist in the story definition file. Check that those diagrams match the
+   implementation, and validate them with the `mermaid-diagrams` validation script.
 2. Preserve all document tree structures (usually code files) that explain how packages and files are organized in the
    project. Update files tree structure with factual documents. There is no need to explain each document in the tree
    structure or display absolutely every document so feel free to aggregate and summarize the document tree structure to
@@ -36,10 +36,14 @@ can be used for future reference and understanding of the feature.
 9. Rename the file `$ARGUMENTS` that ends with `_STORY.md` to `_SPEC.md` to indicate that it is now a specification
    document (it this was not done before).
 
-> We're in development phase, we're not documenting any old feature. Pay attention to everywhere where we mention words
-> such as 'earlier', 'previously', 'legacy', 'old' - maybe these are "documentation smell" that needs to be reviewed and
-> removed.
+10. Structure the specification with the specification template below.
 
-**Specification writing principles are here, load this file:**
+@~/.claude/skills/spec-writing/templates/spec.md
 
-@~/.claude/commands/_spec-practices.md
+---
+
+**Writing and diagram standards - apply them to the specification:**
+
+@~/.claude/skills/spec-writing/SKILL.md
+
+@~/.claude/skills/mermaid-diagrams/SKILL.md

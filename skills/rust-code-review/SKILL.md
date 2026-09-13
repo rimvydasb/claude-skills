@@ -18,7 +18,8 @@ real, located in the code, and ordered by impact.
 $ARGUMENTS
 
 Do not modify source code during this review. Write the review as a Markdown file (code snippets inside it are allowed)
-and save it as `docs/<scope-slug>_REVIEW.md`, where `<scope-slug>` is a short kebab-case name of the scope.
+and save it as `docs/<scope-slug>_REVIEW.md`, where `<scope-slug>` is a short kebab-case name of the scope. Write
+all diagrams with the `mermaid-diagrams` skill, and run its validation script on the saved review.
 
 ## Context
 

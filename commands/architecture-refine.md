@@ -1,6 +1,6 @@
 ---
 name: architecture-refine
-description: Refines an architecture document in the given scope to the documentation standard - Simplified Technical English, diagrams and tables instead of prose, Open Questions, and an Architectural Decisions Record.
+description: Refines an architecture document in the given scope to the documentation standard - Simplified Technical English, diagrams and tables instead of prose, a component diagram as System View, Open Questions, and decisions recorded in docs/architecture-adr.md.
 argument-hint: <scope, file or directory>
 disable-model-invocation: true
 ---
@@ -11,80 +11,35 @@ disable-model-invocation: true
 
 $ARGUMENTS
 
-## Standard
+Refine the architecture documents in scope to the `spec-writing` and `mermaid-diagrams` standards loaded below.
 
-**Text:**
+## Tasks
 
-Where possible use AECMA Simplified English, now ASD-STE100 Simplified Technical English (STE). Everywhere where needed,
-extend STE with technical software engineering terminology.
+- [ ] Replace long textual explanations with diagrams, tables, or lists (`spec-writing` Section 1). A process becomes a
+  flowchart (high level) or a sequence diagram (low level); elements with attributes become a table.
+- [ ] Rewrite the remaining text in Simplified Technical English with precise words and fact-style headings
+  (`spec-writing` Sections 2-4).
+- [ ] Remove internal reasoning, legacy functionality, and old or previous behavior (`spec-writing` Section 5). Record
+  each removed decision and its reasoning in `docs/architecture-adr.md` with the ADR template.
+- [ ] Include a component diagram as the System View (the UML System View). Follow the component diagram notation in
+  `mermaid-diagrams`. Component names are the exact technical names used by the implementation, for example
+  `UserDatabase`.
+- [ ] Use tables for class or object property to database column mappings, and for component property, type, and
+  description declarations.
+- [ ] Add `## Open Questions` at the end of the technical content, with all open questions about the architecture and
+  implementation (Open Questions template).
+- [ ] Validate every document in scope with the `mermaid-diagrams` validation script.
 
-You're not allowed writing long textual explanations or text paragraphs. If a single paragraph of text has more than two
-sentences and a single sentence has more than 10 words, consider changing it to Markdown table or mermaid diagram with
-labels.
+## Templates
 
-All architectural document must be free from internal reasoning. If needed, all reasoning can be added to
-`Architectural Decisions Record`
+@~/.claude/skills/spec-writing/templates/open-questions.md
 
-No legacy functionality must be mentioned anywhere. No old behavior or previous functionality must be mentioned. Only
-one exception is `Architectural Decisions Record` paragraph.
+@~/.claude/skills/spec-writing/templates/adr.md
 
-**Listing:**
+---
 
-You are allowed writing Markdown lists for:
+**Writing and diagram standards:**
 
-1. Tasks - use `- [ ] Task...`
-2. Elements with their descriptions - use `1. **Element:** description...`
-3. Questions: `1. Question`
+@~/.claude/skills/spec-writing/SKILL.md
 
-If you see that elements have more attributes than a name and a description, use a Markdown table instead of a list.
-
-**Thinking:**
-
-If you see that you need to explain something, and it might take or takes more than two sentences, think of what is it:
-maybe you want to describe process, then use flow or sequence diagrams; maybe you want to describe elements and element
-attributes, then use Markdown table.
-
-**Diagrams:**
-
-Prioritize Mermaid diagrams over textual explanations everywhere:
-
-- Flow diagrams for high level process. Each Flow diagram box is a high level component that can do one and only one
-  action. Flow diagram arrow must have a label with data element name.
-- Sequence diagrams for low level process. Actors must be concrete components that are already implemented or should be
-  implemented. Arrows represent function calls. Use labels where needed.
-- All mermaid diagram notes or labels must be no longer than 1 sentence.
-- Do not re-tell what is in diagram - it must be already obvious reading the diagram itself. Labels must contain
-  non-obvious or additional information.
-
-**Components Diagram:**
-
-One of the most important diagrams is components diagram that, according UML standard, is considered to be System View.
-
-- Use `subgraph` to show namespaces or logical groups of the components
-- Use database view for persistence components
-- Use solid arrows to show dependencies between components
-- Use dotted arrows to show data flow between components
-- All diagram arrows must have labels
-- Component names must be exact technical names that will be used for the implementation, for example UserDatabase, etc.
-
-**Tables:**
-
-Use tables for any comparison, mappings or any descriptions of a list of elements where multiple categories (dimensions)
-are involved. For example always use tables for class/object property to database table columns mappings, or component's
-property, type and description declarations.
-
-**Open Questions:**
-
-At the end of the technical content, add `## Open Questions` block where below you will list all open questions
-regarding the architecture and implementation. All questions must be listed in Markdown list.
-
-**Architectural Decisions:**
-
-Below the document there must be a paragraph `## Architectural Decisions Record` where you will write down a table. Type
-column contains labels: DEPRECATED (was removed), REPLACED (new behavior instead of old), ADDED (completely new
-behavior). Example:
-
-| # | Type       | Before                     | Where               | Change                                             |
-|---|------------|----------------------------|---------------------|----------------------------------------------------|
-| 1 | DEPRECATED | What was before 1 sentence | File list, location | Reasoning or the change that as made in 1 sentence |
-| 2 |            | ...                        | ...                 | ...                                                |
+@~/.claude/skills/mermaid-diagrams/SKILL.md

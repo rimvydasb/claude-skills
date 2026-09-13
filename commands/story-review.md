@@ -71,34 +71,17 @@ final message to the user, list each task you marked with the file path that pro
 
 ## Story Conventions
 
-- `> Todo:` - a task that needs to be done.
-- `> Architect notes:` - notes for you to pay attention to. Delete them when addressed or no longer relevant.
-- `- [ ]`, `- [x]` - task checkboxes. Every story topic that needs implementation has a brief checkbox task list to
-  track progress.
-- TypeScript component APIs are defined as TypeScript interfaces and types, for example:
+The story notation (`> Todo:`, `> Architect notes:`, `> Clarification:`, checkboxes, TypeScript interfaces) is defined in
+Section 6 of the writing standard below. Write Open Questions with this template:
 
-```typescript
-interface MyNewComponent {
-    setName(name: string): boolean; // description of the method
-    name: string; // description of the property
-    // ...
-}
-```
+@~/.claude/skills/spec-writing/templates/open-questions.md
 
-## Open Questions Template
-
-```markdown
-## Open Questions
-
-1. **Short title of the inconsistency or gap**: detailed description, with the story section and code file it refers to.
-   Question to address: question that must be answered to resolve the inconsistency or gap.
-   Option 1: possible way to resolve the inconsistency or gap.
-   Option 2: another possible way to resolve the inconsistency or gap.
-2. ...
-```
+If you change a diagram, validate the story with the `mermaid-diagrams` validation script.
 
 ---
 
-**Specification writing principles are here, load this file:**
+**Writing and diagram standards - apply them to the story:**
 
-@~/.claude/commands/_spec-practices.md
+@~/.claude/skills/spec-writing/SKILL.md
+
+@~/.claude/skills/mermaid-diagrams/SKILL.md

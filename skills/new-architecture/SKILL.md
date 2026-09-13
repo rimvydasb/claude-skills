@@ -36,8 +36,9 @@ refined with `/architecture-refine`.
 - Before starting, read `README.md` and `copilot-instructions.md` if these documents exist. Also read `CLAUDE.md` or
   `AGENTS.md` if they exist to become familiar with the project.
 - Use Mermaid diagrams where applicable to illustrate the architecture, data flow, or any other relevant aspect of the
-  system. Use the best UML and Mermaid diagram practices to ensure clarity and readability. Avoid high level
-  abstractions where possible and stay grounded in the real component and entity names.
+  system. Follow the `mermaid-diagrams` skill: the "System View" section contains a component diagram, and every
+  diagram uses the real component and entity names. Run its validation script on the saved document.
+- Write the text with the `spec-writing` skill.
 - Use the `tree` command to generate the repository structure and include it in the "Repository Structure" section.
   Stay brief and highlight only important folders and files.
 - No fluff, no commercial pitch; stay grounded and technical. The document must be useful for a new developer joining

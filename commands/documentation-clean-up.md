@@ -33,7 +33,8 @@ $ARGUMENTS
     - anything addressed to the reviewer ("note that", "as requested", "this is deliberate"). All of this information is
       not needed in the code comments and should be removed.
 
-- [ ] Move reasoning, background information, and rejected alternatives to `docs/architecture-adr.md`.
+- [ ] Move reasoning, background information, and rejected alternatives to `docs/architecture-adr.md`, using the ADR
+  template (`~/.claude/skills/spec-writing/templates/adr.md`).
 - [ ] Eliminate duplicated information.
 - [ ] Aggregate code comments if it helps to reduce the amount of text and improve clarity.
 - [ ] Leave the information that is non-obvious and is not quickly discoverable from the code itself.
@@ -43,9 +44,11 @@ $ARGUMENTS
 
 **Refine documentation in the specified scope based on following rules:**
 
-- [ ] Rewrite documentation and comments in AECMA Simplified English, now ASD-STE100 Simplified Technical English (STE)
+- [ ] Rewrite documentation and comments in ASD-STE100 Simplified Technical English (STE).
+- [ ] Apply the `spec-writing` standard (loaded below) to documentation files.
 - [ ] Eliminate duplicated information.
 - [ ] Aggregate information if it helps to reduce the amount of text and improve clarity.
+- [ ] Validate every documentation file that contains Mermaid diagrams with the `mermaid-diagrams` validation script.
 
 **Comments Style Rules:**
 
@@ -55,3 +58,11 @@ $ARGUMENTS
 - [ ] Place a comment on the line above the code it describes.
 - [ ] Use one consistent comment style within a file: start with a capital letter, write complete sentences in doc
   comments.
+
+---
+
+**Writing and diagram standards:**
+
+@~/.claude/skills/spec-writing/SKILL.md
+
+@~/.claude/skills/mermaid-diagrams/SKILL.md

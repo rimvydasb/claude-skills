@@ -35,7 +35,7 @@ One paragraph, plain English. What is the answer? No jargon without definition.
 
 ## Structural view (Optional)
 Mermaid class or component diagram showing the key types/modules and their relationships.
-Use `classDiagram` for OOP/type-heavy code, `graph LR` for module/package topology.
+Use `classDiagram` for OOP/type-heavy code, a `flowchart LR` component diagram for module/package topology.
 
 ## Behavioral view (Optional)
 Mermaid sequence or flowchart showing the runtime flow relevant to the question.
@@ -61,7 +61,8 @@ If the code is unclear, incomplete, or the question cannot be fully answered fro
 ## Rules
 
 - Never hallucinate file contents. If a file is too large, read only the relevant portion.
-- Mermaid diagrams must be syntactically valid. Prefer simple diagrams over complex ones.
+- Write diagrams with the `mermaid-diagrams` skill, and run its validation script on the saved document. Prefer
+  simple diagrams over complex ones.
 - The document must answer the specific question — do not produce a generic repo overview.
 - If the question is ambiguous, state your interpretation at the top of the Summary section.
 - Save the file and confirm the path at the end.

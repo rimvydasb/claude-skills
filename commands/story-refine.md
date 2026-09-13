@@ -25,3 +25,12 @@ The general project information is stored in `docs/architecture.md` and `README.
    story's `## Architecture Changes` section.
 7. As a final step, plan the implementation of new requirements and add or update section `## Tasks` in the story
    document.
+8. If you changed a diagram, validate the story with the `mermaid-diagrams` validation script.
+
+---
+
+**Writing and diagram standards - apply them to the story:**
+
+@~/.claude/skills/spec-writing/SKILL.md
+
+@~/.claude/skills/mermaid-diagrams/SKILL.md
