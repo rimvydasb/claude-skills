@@ -31,8 +31,9 @@ can be used for future reference and understanding of the feature.
    the specification document.
 7. The specification content must be clear, concise, and easy to understand and later on to maintain. You can aggregate,
    summarize and organize the content to bring clarity.
-8. You do not need to preserve the log of decisions or any architect and agent dialog notes in the document. However,
-   you can aggregate or move important decisions to the `## Clarifications` section if they do not fit other topics.
+8. Do not keep the log of decisions or the architect and agent dialog notes. Sort each decision with the reasoning rule
+   in `spec-writing` Section 5: a decision that constrains future changes goes to `docs/architecture-adr.md`; deferred
+   work goes to `## Future Improvements`; the rest is deleted.
 9. Rename the file `$ARGUMENTS` that ends with `_STORY.md` to `_SPEC.md` to indicate that it is now a specification
    document (it this was not done before).
 
@@ -42,8 +43,5 @@ can be used for future reference and understanding of the feature.
 
 ---
 
-**Writing and diagram standards - apply them to the specification:**
-
-@~/.claude/skills/spec-writing/SKILL.md
-
-@~/.claude/skills/mermaid-diagrams/SKILL.md
+**Writing and diagram standards:** load the `spec-writing` and `mermaid-diagrams` skills before you write, unless they
+are already loaded in this session. Apply them to the specification.

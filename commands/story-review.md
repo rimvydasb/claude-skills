@@ -45,8 +45,9 @@ final message to the user, list each task you marked with the file path that pro
 **Step 3: Fix minor gaps and complete placeholders**
 
 - Fix clear, minor inconsistencies directly, without asking questions.
-- Find `Todo`, `TODO`, `TBC` and `> Todo:` placeholders. Complete those you can resolve from the code, the documentation,
-  and the story. Turn the rest into Open Questions.
+- Find `> Todo:` placeholders and stray `TODO`, `TBC`, or `<!-- TODO -->` markers. Complete those you can resolve from
+  the code, the documentation, and the story. Convert the rest to the `spec-writing` Section 6 formats: an unresolved
+  question becomes an Open Question; planned work becomes a `> Todo:`.
 
 **Step 4: Record significant gaps as Open Questions**
 
@@ -72,7 +73,7 @@ final message to the user, list each task you marked with the file path that pro
 ## Story Conventions
 
 The story notation (`> Todo:`, `> Architect notes:`, `> Clarification:`, checkboxes, TypeScript interfaces) is defined in
-Section 6 of the writing standard below. Write Open Questions with this template:
+Section 6 of `spec-writing`. Write Open Questions with this template:
 
 @~/.claude/skills/spec-writing/templates/open-questions.md
 
@@ -80,8 +81,5 @@ If you change a diagram, validate the story with the `mermaid-diagrams` validati
 
 ---
 
-**Writing and diagram standards - apply them to the story:**
-
-@~/.claude/skills/spec-writing/SKILL.md
-
-@~/.claude/skills/mermaid-diagrams/SKILL.md
+**Writing and diagram standards:** load the `spec-writing` and `mermaid-diagrams` skills before you edit, unless they are
+already loaded in this session. Apply them to the story.

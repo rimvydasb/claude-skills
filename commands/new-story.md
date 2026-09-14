@@ -24,8 +24,5 @@ $ARGUMENTS
 
 ---
 
-**Writing and diagram standards - apply them to the story:**
-
-@~/.claude/skills/spec-writing/SKILL.md
-
-@~/.claude/skills/mermaid-diagrams/SKILL.md
+**Writing and diagram standards:** load the `spec-writing` and `mermaid-diagrams` skills before you write, unless they
+are already loaded in this session. Apply them to the story.

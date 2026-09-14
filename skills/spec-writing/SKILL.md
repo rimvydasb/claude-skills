@@ -13,13 +13,13 @@ For every Mermaid diagram, follow the `mermaid-diagrams` skill (`~/.claude/skill
 
 ## Documents and Templates
 
-| Document               | Location                        | Template                                                     |
-|------------------------|---------------------------------|--------------------------------------------------------------|
-| Story                  | `docs/FEATURE_NAME_STORY.md`    | `templates/story.md`                                         |
-| Specification          | `docs/FEATURE_NAME_SPEC.md`     | `templates/spec.md`                                          |
-| Architecture           | `docs/architecture.md`          | Defined by the `new-architecture` skill                      |
-| Architecture decisions | `docs/architecture-adr.md`      | `templates/adr.md`                                           |
-| Open Questions section | Story, spec, or architecture    | `templates/open-questions.md`                                |
+| Document               | Location                     | Template                                |
+|------------------------|------------------------------|-----------------------------------------|
+| Story                  | `docs/FEATURE_NAME_STORY.md` | `templates/story.md`                    |
+| Specification          | `docs/FEATURE_NAME_SPEC.md`  | `templates/spec.md`                     |
+| Architecture           | `docs/architecture.md`       | Defined by the `new-architecture` skill |
+| Architecture decisions | `docs/architecture-adr.md`   | `templates/adr.md`                      |
+| Open Questions section | Story, spec, or architecture | `templates/open-questions.md`           |
 
 - Templates are in `~/.claude/skills/spec-writing/templates/`. Read the template before you create a document or a
   section of that type.
@@ -30,16 +30,16 @@ For every Mermaid diagram, follow the `mermaid-diagrams` skill (`~/.claude/skill
 
 Use the most structured form that fits the content:
 
-| Content                                                    | Form                                    |
-|------------------------------------------------------------|-----------------------------------------|
-| A process, workflow, or multi-step interaction             | Mermaid diagram                         |
-| A structure: components, classes, dependencies             | Mermaid diagram                         |
-| Items with 3 or more attributes (name, type, description)  | Table                                   |
-| Comparisons and mappings (object property to table column) | Table                                   |
-| Items with a name and a description                        | List: `- **Name:** description`         |
-| Tasks                                                      | Checkbox list: `- [ ] Task`             |
-| Questions                                                  | Numbered list                           |
-| One fact or rule                                           | Sentence                                |
+| Content                                                    | Form                            |
+|------------------------------------------------------------|---------------------------------|
+| A process, workflow, or multi-step interaction             | Mermaid diagram                 |
+| A structure: components, classes, dependencies             | Mermaid diagram                 |
+| Items with 3 or more attributes (name, type, description)  | Table                           |
+| Comparisons and mappings (object property to table column) | Table                           |
+| Items with a name and a description                        | List: `- **Name:** description` |
+| Tasks                                                      | Checkbox list: `- [ ] Task`     |
+| Questions                                                  | Numbered list                   |
+| One fact or rule                                           | Sentence                        |
 
 - Numbering does not count as an attribute. Convert a table with only 2 meaningful columns to a list.
 - If an explanation needs more than 2 sentences, identify what it describes: a process becomes a diagram; elements and
@@ -48,7 +48,9 @@ Use the most structured form that fits the content:
 
 ## 2. Write Simplified Technical English
 
-- Write in ASD-STE100 Simplified Technical English (STE), extended with standard software engineering terms.
+- Write final document in ASD-STE100 Simplified Technical English (STE), extended with standard software engineering
+  terms. It is not necessary to use the STE in internal thinking or discussion, but use STE in the final document
+  output.
 - One sentence states one fact. A sentence has at most 20 words. A paragraph has at most 2 sentences.
 - Use active voice and present tense: "The `RiskIndicator` computes the score."
 - Use the exact technical names from the code, or the names the code will use, in backticks.
@@ -85,18 +87,25 @@ produced it. We are in the development phase and do not document old features.
   "old", "deprecated". These words mark text to review and usually to delete.
 - Do not describe what something does *not* do, unless the absence is a contract the reader needs: "The endpoint does
   not retry on 4xx responses" is a contract; "We do not implement caching in phase 1" is discussion noise.
-- Do not narrate rejected alternatives or internal reasoning. Record them in `docs/architecture-adr.md`.
+- Do not narrate reasoning in the document. Sort each piece of reasoning with one test - does a future change go wrong if
+  this reason is lost?
+    - Yes: a decision that constrains future changes (the chosen approach, a rejected alternative, removed behavior).
+      Record it in `docs/architecture-adr.md` with the ADR template.
+    - Deferred work: move it to `## Future Improvements`.
+    - No: the author's or agent's own thinking (steps tried, notes to a reviewer, "this is deliberate"). Delete it.
 - Keep material worth preserving in dedicated sections, as short bullet lists:
     - `## Limitations` - known constraints and deliberate scope boundaries.
     - `## Future Improvements` - follow-up work.
-    - `## Clarifications` - decisions that fit no other section.
+    - `## Clarifications` - current-state facts that answer a question the reader will ask.
     - `## Open Questions` - unresolved gaps.
 - Do not copy implementation code into specifications. Link to the file that defines a type or model. Stories are the
   exception: they define planned TypeScript APIs as interfaces (Section 6).
 
 ## 6. Story Notation
 
-- `> Todo:` - a task that needs to be done.
+- `> Todo:` - planned work that is not yet written or decided in detail.
+- `## Open Questions` - anything unresolved: gaps, inconsistencies, decisions the architect must make.
+- Use only these two placeholder formats. Do not use `TODO`, `TBC`, or HTML comments such as `<!-- TODO -->`.
 - `> Architect notes:` - notes from the architect to the agent. Delete them when addressed or no longer relevant.
 - `> Clarification:` - a kept explanation from an architect answer.
 - `- [ ]`, `- [x]` - task checkboxes. Every story topic that needs implementation has a brief checkbox task list to
@@ -117,5 +126,6 @@ interface MyNewComponent {
 - [ ] No vague words. No lowercase "should", "could", or "might" describes behavior.
 - [ ] No heading or paragraph starts with "When", "How", or "Why".
 - [ ] No past-state, legacy, or rejected-alternative text outside `docs/architecture-adr.md`.
+- [ ] No `TODO`, `TBC`, or HTML-comment placeholders: only `> Todo:` and `## Open Questions`.
 - [ ] Documents and sections follow their templates.
 - [ ] Every Mermaid diagram passes the `mermaid-diagrams` checklist and validation script.

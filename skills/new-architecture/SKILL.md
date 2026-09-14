@@ -9,7 +9,7 @@ Analyze the current repository and project state, and create a comprehensive arc
 `docs/architecture.md`.
 
 If `docs/architecture.md` already exists, do not overwrite or modify it. Stop and tell the user; the existing document is
-refined with `/architecture-refine`.
+refined with `/docs-refine`.
 
 ## Template
 

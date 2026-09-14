@@ -1,17 +1,19 @@
 ---
 name: documentation-clean-up
-description: Cleans up documentation and code comments in the given scope - removes outdated, duplicated, and reviewer-directed text, moves design reasoning to docs/architecture-adr.md, and rewrites documentation in Simplified Technical English.
+description: Cleans up code comments and doc comments in the given scope - removes outdated, duplicated, and reviewer-directed text, moves design decisions to docs/architecture-adr.md, rewrites comments in Simplified Technical English, and verifies that the build and tests still pass. For Markdown documents, use /docs-refine.
 argument-hint: <scope, file or directory>
 disable-model-invocation: true
 ---
 
 # Documentation Clean-Up
 
-You will review all documentation and the code comments in the specified scope and refine them to ensure they are
-accurate, clear, and consistent with the current state of the codebase. The goal is to eliminate any outdated or
-misleading information and to ensure that all documentation accurately reflects the functionality and behavior of the
-code. The second goal is to shrink the amount of the code comments and documentation to the minimum needed to understand
-the code and its functionality.
+Review the code comments and doc comments in scope. Make them accurate and consistent with the current code, and shrink
+them to the minimum a reader needs to understand the code.
+
+Edit only comments. Do not change code behavior. For Markdown documents, use `/docs-refine`.
+
+Load the `spec-writing` skill before you edit, unless it is already loaded in this session. Sections 2, 3, and 5 apply to
+comments.
 
 ## Scope
 
@@ -19,50 +21,47 @@ $ARGUMENTS
 
 ## Tasks
 
-**Setup:**
+**Remove text that has no value for the reader:**
 
-- [ ] Create the `docs/architecture-adr.md` file if it does not exist.
+- [ ] Remove statements that:
+    - explain what the code does not do;
+    - explain what the code did before;
+    - describe alternatives that are not implemented;
+    - restate the identifier name;
+    - address the reviewer ("note that", "as requested", "this is deliberate").
+- [ ] Remove duplicated information. Aggregate comments where this reduces text and improves clarity.
+- [ ] Keep information that is non-obvious and not quickly discoverable from the code.
 
-**Refine all code comments in specified scope based on following rules:**
+**Sort reasoning with the `spec-writing` Section 5 rule:**
 
-- [ ] Eliminate the following forbidden statements, sentences and text fragments that:
-    - explains what the code does not do;
-    - explains what the code what it used to do before;
-    - alternatives considered and rejected, that are not implemented with the code;
-    - restatements of the identifier name;
-    - anything addressed to the reviewer ("note that", "as requested", "this is deliberate"). All of this information is
-      not needed in the code comments and should be removed.
+- [ ] A decision that constrains future changes (the chosen approach, a rejected alternative, removed behavior): move it
+  to `docs/architecture-adr.md` as an ADR entry. Create the file only when you have an entry to write.
+- [ ] Deferred work: keep it as one short `TODO` comment only if the project already uses them; otherwise report it to
+  the user.
+- [ ] The implementing agent's own thinking: delete it.
 
-- [ ] Move reasoning, background information, and rejected alternatives to `docs/architecture-adr.md`, using the ADR
-  template (`~/.claude/skills/spec-writing/templates/adr.md`).
-- [ ] Eliminate duplicated information.
-- [ ] Aggregate code comments if it helps to reduce the amount of text and improve clarity.
-- [ ] Leave the information that is non-obvious and is not quickly discoverable from the code itself.
-- [ ] Find out if the code comment holds important information or is just an internal reasoning that does not have any
-  value for the reader. If it is just an internal reasoning that was done by the implementing agent, eliminate that code
-  comment.
+**Rewrite the remaining comments:**
 
-**Refine documentation in the specified scope based on following rules:**
+- [ ] Write in ASD-STE100 Simplified Technical English (STE) with precise words.
 
-- [ ] Rewrite documentation and comments in ASD-STE100 Simplified Technical English (STE).
-- [ ] Apply the `spec-writing` standard (loaded below) to documentation files.
-- [ ] Eliminate duplicated information.
-- [ ] Aggregate information if it helps to reduce the amount of text and improve clarity.
-- [ ] Validate every documentation file that contains Mermaid diagrams with the `mermaid-diagrams` validation script.
-
-**Comments Style Rules:**
+**Comment style rules:**
 
 - [ ] Use `//` for single-line comments.
 - [ ] Use consecutive `//` lines instead of `/* */` blocks for multi-line implementation comments.
-- [ ] Use doc comments (`/** */` in TypeScript/JavaScript, `///` in Rust) only for public API documentation.
+- [ ] Use doc comments (`/** */` in TypeScript/JavaScript, `///` and `//!` in Rust) only for public API and module
+  documentation.
 - [ ] Place a comment on the line above the code it describes.
 - [ ] Use one consistent comment style within a file: start with a capital letter, write complete sentences in doc
   comments.
+- [ ] Keep code examples inside doc comments compilable. Rust doc examples are doctests.
 
----
+## Verification
 
-**Writing and diagram standards:**
+- [ ] Run the project build, the test suite (including Rust doctests), and the linter.
+- [ ] If a check fails because of a comment change, fix the comment and run the checks again.
+- [ ] Report to the user: the changed files, the ADR entries added, and the build, test, and lint results (failures
+  verbatim).
 
-@~/.claude/skills/spec-writing/SKILL.md
+## Template
 
-@~/.claude/skills/mermaid-diagrams/SKILL.md
+@~/.claude/skills/spec-writing/templates/adr.md

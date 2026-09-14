@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash, Read, Glob, Grep
+allowed-tools: Read, Glob, Grep, Write, Bash(tree:*), Bash(git log:*), Bash(rg:*), Bash(bash ~/.claude/skills/mermaid-diagrams/scripts/validate.sh:*)
 argument-hint: <question about the repository>
 description: Answers a question about how the current repository works by tracing the relevant code, and saves a Markdown explanation with Mermaid diagrams to docs/explain/. Use when the user asks how a feature, flow, or module in this repository works.
 ---
