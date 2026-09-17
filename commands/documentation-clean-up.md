@@ -12,7 +12,8 @@ them to the minimum a reader needs to understand the code.
 
 Edit only comments. Do not change code behavior. For Markdown documents, use `/docs-refine`.
 
-Load the `spec-writing` skill before you edit, unless it is already loaded in this session. Sections 2, 3, and 5 apply to
+Load the `spec-writing` skill before you edit, unless it is already loaded in this session. Sections 2, 3, and 5 apply
+to
 comments.
 
 ## Scope
@@ -61,6 +62,16 @@ $ARGUMENTS
 - [ ] If a check fails because of a comment change, fix the comment and run the checks again.
 - [ ] Report to the user: the changed files, the ADR entries added, and the build, test, and lint results (failures
   verbatim).
+
+## Comments Smell
+
+Eliminate code smells by completely removing a comment or rewriting it if it carries meaningful value. Code comments
+might look correct and valid, but somehow they do not sound precise, exact and straight. There're comment wording smells
+to detect that:
+
+- `rather than`, `instead of` - trying to answer question that might be never asked, explaining a behavior that is
+  prevented, or providing alternative idea that is already invalidated.
+- `guess`, `think`, `answering` - representing internal thinking that lead to this solution.
 
 ## Template
 
