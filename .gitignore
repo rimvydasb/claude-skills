@@ -16,3 +16,5 @@ plans
 .last-update-result.json
 chrome
 stats-cache.json
+skills/synced
+skills/synced/**
