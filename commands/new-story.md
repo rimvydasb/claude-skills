@@ -16,9 +16,9 @@ $ARGUMENTS
 4. Describe those changes in the story's `## Architecture Changes` section, with structural and behavioral diagrams
    where needed. Do not modify `docs/architecture.md`: it describes approved and implemented architecture only. The
    story's final phase contains the task to update it.
-5. Write the story using the story template below. You can split the implementation into phases if needed, but each
-   phase must be complete in the terms that after each phase all tests pass and the application can be started.
-6. Validate every diagram in the story with the `mermaid-diagrams` validation script.
+5. Find the project's build, lint, test, E2E, and start commands. Check whether the project has an E2E test setup.
+6. Write the story using the story template below. Follow its phase, acceptance criteria, and E2E phase rules.
+7. Validate the story with the `spec-writing` lint script and the `mermaid-diagrams` validation script.
 
 @~/.claude/skills/spec-writing/templates/story.md
 

@@ -26,10 +26,11 @@ The document `$ARGUMENTS` contains tasks under `## Tasks` that might be separate
 
 When all tasks in the current phase are checked:
 
-1. Run the full build, test suite, and linter.
+1. Run the verification of each acceptance criterion of the phase. Check a criterion only when its verification passes.
+   If a criterion fails, fix the code and verify again. Do not weaken, skip, or delete tests or criteria.
 2. Stop. Do not start the next phase.
 3. Report to the user:
-    - the completed phase and its tasks;
+    - the completed phase, its tasks, and the result of each acceptance criterion;
     - the changed files;
     - the build, test, and lint results (pass/fail counts; failures verbatim);
     - each deviation from the story, and each decision you made that the story does not specify.
