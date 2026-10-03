@@ -1,0 +1,42 @@
+{
+  "skill_name": "spec-writing",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "/new-story Add CSV export of the risk table. The user selects rows and downloads them as a CSV file.",
+      "expected_output": "docs/CSV_EXPORT_STORY.md built from templates/story.md",
+      "files": [],
+      "expectations": [
+        "The story has a ## Verification section with real project commands",
+        "Every phase ends with an 'Acceptance criteria:' checkbox list",
+        "Every acceptance criterion names a command, test name, or manual step",
+        "An E2E phase exists only if the project has an E2E setup; otherwise there is none",
+        "Each feature phase has a task to add tests for its own code",
+        "scripts/lint.py exits with 0 for the story"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Rewrite this paragraph for docs/architecture.md: 'How the loader works: previously we used a cron job, but basically now the Loader should poll the queue and might retry 3 times, etc.'",
+      "expected_output": "A fact-style heading and present-tense text; the cron job removal goes to docs/architecture-adr.md",
+      "files": [],
+      "expectations": [
+        "The heading does not start with How",
+        "The text has no 'previously', 'basically', 'should', 'might', or 'etc.'",
+        "The removed cron job behavior is recorded as an ADR entry, not in the architecture text"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Add an ADR: we chose PostgreSQL LISTEN/NOTIFY over Redis pub/sub for job events because we already run Postgres.",
+      "expected_output": "A new entry appended to docs/architecture-adr.md using templates/adr.md",
+      "files": [],
+      "expectations": [
+        "The entry is appended with the next ADR number",
+        "The heading states the decision as WHO does WHAT",
+        "Redis pub/sub appears in a Rejected line with its reason",
+        "No story phase or acceptance criteria content is written"
+      ]
+    }
+  ]
+}

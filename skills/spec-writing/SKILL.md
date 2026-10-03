@@ -9,22 +9,28 @@ user-invocable: false
 Stories, specifications, and architecture documents describe what the system does. The readers are engineers and
 implementing agents. They need facts they can build or verify against, with the minimum amount of text.
 
-For every Mermaid diagram, follow the `mermaid-diagrams` skill (`~/.claude/skills/mermaid-diagrams/SKILL.md`).
+For every Mermaid diagram, follow the `mermaid-diagrams` skill.
 
 ## Documents and Templates
 
-| Document               | Location                     | Template                                |
-|------------------------|------------------------------|-----------------------------------------|
-| Story                  | `docs/FEATURE_NAME_STORY.md` | `templates/story.md`                    |
-| Specification          | `docs/FEATURE_NAME_SPEC.md`  | `templates/spec.md`                     |
-| Architecture           | `docs/architecture.md`       | Defined by the `new-architecture` skill |
-| Architecture decisions | `docs/architecture-adr.md`   | `templates/adr.md`                      |
-| Open Questions section | Story, spec, or architecture | `templates/open-questions.md`           |
+| Document               | Location                     | Template                                                 |
+|------------------------|------------------------------|----------------------------------------------------------|
+| Story                  | `docs/FEATURE_NAME_STORY.md` | [templates/story.md](templates/story.md)                 |
+| Specification          | `docs/FEATURE_NAME_SPEC.md`  | [templates/spec.md](templates/spec.md)                   |
+| Architecture           | `docs/architecture.md`       | [templates/architecture.md](templates/architecture.md)   |
+| Architecture decisions | `docs/architecture-adr.md`   | [templates/adr.md](templates/adr.md)                     |
+| Open Questions section | Story, spec, or architecture | [templates/open-questions.md](templates/open-questions.md) |
 
-- Templates are in `~/.claude/skills/spec-writing/templates/`. Read the template before you create a document or a
-  section of that type.
-- `docs/architecture.md` describes approved and implemented architecture only. A story proposes changes in its
-  `## Architecture Changes` section. The story's final phase updates `docs/architecture.md`.
+Read only the template for the document or section you write. Skip the read if the template is already in context.
+
+## Workflow
+
+1. Read the template. Write or edit the document with the rules below.
+2. Run `python3 ${CLAUDE_SKILL_DIR}/scripts/lint.py <file.md>`. It checks sentence and paragraph length, vague words,
+   lowercase modals, When/How/Why openers, past-state words, and placeholders.
+3. Fix each finding and run the script again. Continue until it exits with 0. Inside a quote or a code span, a
+   finding can be a false positive: leave that text unchanged.
+4. Review the document against the checklist at the end. The checklist covers the rules the script cannot check.
 
 ## 1. Choose the Form
 
@@ -48,9 +54,8 @@ Use the most structured form that fits the content:
 
 ## 2. Write Simplified Technical English
 
-- Write final document in ASD-STE100 Simplified Technical English (STE), extended with standard software engineering
-  terms. It is not necessary to use the STE in internal thinking or discussion, but use STE in the final document
-  output.
+- Write the document text in ASD-STE100 Simplified Technical English (STE), extended with standard software
+  engineering terms. STE applies to the document only, not to your reasoning or your replies to the user.
 - One sentence states one fact. A sentence has at most 20 words. A paragraph has at most 2 sentences.
 - Use active voice and present tense: "The `RiskIndicator` computes the score."
 - Use the exact technical names from the code, or the names the code will use, in backticks.
@@ -101,6 +106,11 @@ produced it. We are in the development phase and do not document old features.
 - Do not copy implementation code into specifications. Link to the file that defines a type or model. Stories are the
   exception: they define planned TypeScript APIs as interfaces (Section 6).
 
+| Input                                                                                          | Output                                                                                                          |
+|------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| "Why we cache tokens: previously each request called the auth server, which was kind of slow." | Heading: "The `TokenCache` stores validated tokens". Text: "The `TokenCache` stores each token until it expires." |
+| (the removed per-request auth call)                                                            | An ADR entry: Context names the per-request call; Consequences states its removal.                               |
+
 ## 6. Story Notation
 
 - `> Todo:` - planned work that is not yet written or decided in detail.
@@ -121,11 +131,10 @@ interface MyNewComponent {
 
 ## Checklist
 
-- [ ] Each process has a diagram. Each list of items with 3 or more attributes is a table.
-- [ ] No sentence has more than 20 words. No paragraph has more than 2 sentences.
-- [ ] No vague words. No lowercase "should", "could", or "might" describes behavior.
-- [ ] No heading or paragraph starts with "When", "How", or "Why".
-- [ ] No past-state, legacy, or rejected-alternative text outside `docs/architecture-adr.md`.
-- [ ] No `TODO`, `TBC`, or HTML-comment placeholders: only `> Todo:` and `## Open Questions`.
-- [ ] Documents and sections follow their templates.
+- [ ] `scripts/lint.py` exits with 0, or each remaining finding is a false positive.
+- [ ] Each process has a diagram. Each list of items with 3 or more attributes is a table. No prose re-tells a diagram
+  or a table.
+- [ ] Each technical name matches the code. One term names one concept.
+- [ ] No narrated reasoning, rejected alternative, or removed behavior outside `docs/architecture-adr.md`.
+- [ ] The document follows its template.
 - [ ] Every Mermaid diagram passes the `mermaid-diagrams` checklist and validation script.
