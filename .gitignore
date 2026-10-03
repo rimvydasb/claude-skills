@@ -18,3 +18,5 @@ chrome
 stats-cache.json
 skills/synced
 skills/synced/**
+state
+mcp-*.json
