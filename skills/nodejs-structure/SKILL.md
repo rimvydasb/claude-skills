@@ -77,5 +77,6 @@ user-invocable: false
 - TanStack Query
 - Fastify
 - React
+- Zod
 
 > If user specified, prioritize user specified stack instead

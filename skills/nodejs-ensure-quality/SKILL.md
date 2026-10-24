@@ -1,63 +1,97 @@
 ---
 name: nodejs-ensure-quality
-description: Set up or repair the standard quality tooling of a Node.js project .nvmrc Node lock, Prettier, oxlint and dependency-cruiser with the shared default configs, plus the Claude Code hooks that run them.
+description: Recommended quality tooling for a Node.js project - .nvmrc Node lock, Prettier, oxlint, dependency-cruiser - and the Claude Code hooks that run them. Use to set up or repair that tooling in a project. The agent adapts the reference templates to the project and changes nothing without approval.
 ---
 
 # Ensure Node.js quality tooling
 
-Every Node.js project gets the same baseline. The defaults live in this skill's `templates/` folder, so all projects
-start from one source.
+This skill is a recommendation, not an installer. The reference files in `templates/` show the baseline. Adapt them to
+the project in front of you. Do not copy them blindly. The baseline can differ per project and change between versions
+of this skill.
 
-## Run
+## Baseline
 
-From the project root (the folder with `package.json`):
+| Concern             | Recommendation                                                                      | Reference                                                      |
+| ------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Node version        | `.nvmrc` with the Node major the project targets.                                   | -                                                              |
+| Formatting          | Prettier. Ignore build output and `node_modules`.                                   | `templates/prettierrc.json`                                    |
+| Linting             | oxlint. `lint` reports errors only, `lint:all` reports everything.                  | `templates/oxlintrc.json`                                      |
+| Architecture rules  | dependency-cruiser: no cycles, no unresolvable imports, no dev dependencies in production code, no test imports. Known violations go to a baseline file. | `templates/dependency-cruiser.cjs` |
+| package.json        | Scripts `format`, `format:check`, `lint`, `lint:all`, `depcruise`, `depcruise:baseline`. | Commands in the script table below the hooks section.      |
+| Claude Code hooks   | Format and lint each edited file. Run depcruise and lint before the agent stops.    | `templates/hooks/`, `templates/hooks-settings.json`            |
 
-```sh
-.claude/skills/nodejs-ensure-quality/setup.sh [--force] [node-version]
-```
-
-If the skill is installed globally, use `~/.claude/skills/nodejs-ensure-quality/setup.sh`.
-
-The script is idempotent:
-
-| Step                                                            | Result                                                                                                                                                                                |
-| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `.nvmrc`                                                        | Created with the given version, or the major version of the active Node. An existing file is kept.                                                                                    |
-| `.prettierrc.json`, `.oxlintrc.json`, `.dependency-cruiser.cjs` | Copied from `templates/`. Existing files are kept unless `--force`.                                                                                                                   |
-| `.dependency-cruiser-known-violations.json`, `.prettierignore`  | Created when missing.                                                                                                                                                                 |
-| `.claude/hooks/*.sh`                                            | `ensure-node-version.sh`, `node-env.sh`, `format-file.sh`, `check.sh` copied from `templates/hooks/`.                                                                                 |
-| `.claude/settings.json`                                         | Hook entries merged in (`SessionStart`, `PostToolUse`, `Stop`, `SubagentStop`). Existing hooks stay.                                                                                  |
-| `package.json`                                                  | Scripts `format`, `format:check`, `lint`, `lint:all`, `depcruise`, `depcruise:baseline`. Missing dev dependencies installed: `prettier`, `oxlint`, `dependency-cruiser`, `@swc/core`. |
-
-Then it runs Prettier, oxlint and dependency-cruiser once and prints the result.
+dependency-cruiser needs `@swc/core` only to parse TypeScript. Skip it for JavaScript-only projects.
 
 ## Hooks
 
 | Hook                                   | Script                   | Behavior                                                                                                                    |
 | -------------------------------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| `SessionStart`                         | `ensure-node-version.sh` | Makes nvm's default Node match `.nvmrc`.                                                                                    |
+| `SessionStart`                         | `ensure-node-version.sh` | Makes nvm's default Node match `.nvmrc`. This changes the machine-wide nvm default, so make it opt-in.                      |
 | `PostToolUse` (Edit, Write, MultiEdit) | `format-file.sh`         | Runs `prettier --write`, then `oxlint` on the changed file. Lint errors go back to the agent (exit 2).                      |
 | `Stop`, `SubagentStop`                 | `check.sh`               | Runs `npm run depcruise` and `npm run lint`. Failures go back to the agent. After 3 failed attempts it lets the agent stop. |
 
-`node-env.sh` is sourced by the other scripts. It selects the `.nvmrc` Node and adds `node_modules/.bin` to `PATH`.
+`node-env.sh` is sourced by the other scripts. It selects the `.nvmrc` Node through nvm and adds `node_modules/.bin` to
+`PATH`. The scripts need `jq`. `check.sh` has a `checks` array for extra scripts such as typecheck or tests.
 
-## After the run
+The package.json scripts the baseline uses:
 
-1. Show the user the script output, including anything it kept instead of overwriting.
-2. If dependency-cruiser reports violations in existing code, ask whether to fix them or record them with
-   `npm run depcruise:baseline`. Never weaken the rules to make the run pass.
-3. Project-specific rules go below the `Project rules` marker in `.dependency-cruiser.cjs`; project-specific oxlint
-   rules go in `.oxlintrc.json` `overrides`. For extra checks in `check.sh` (typecheck, tests), add the script names to
-   its `checks` array.
-4. Do not copy project-specific changes back into `templates/` unless the user asks to change the shared defaults. When
-   they do, edit the template files here and re-run with `--force` in other projects.
+| Script               | Command                                                                                  |
+| -------------------- | ---------------------------------------------------------------------------------------- |
+| `format`             | `prettier --write --log-level warn "**/*.{ts,tsx,js,cjs,mjs,json,md}"`                   |
+| `format:check`       | `prettier --check "**/*.{ts,tsx,js,cjs,mjs,json,md}"`                                    |
+| `lint`               | `oxlint --quiet`                                                                         |
+| `lint:all`           | `oxlint`                                                                                 |
+| `depcruise`          | `depcruise . --config .dependency-cruiser.cjs --ignore-known --output-type err-long`     |
+| `depcruise:baseline` | `depcruise-baseline . --config .dependency-cruiser.cjs`                                  |
+
+## Procedure
+
+### 1. Inspect (read only)
+
+Change nothing in this step. Find out:
+
+- the package manager (lockfile: `package-lock.json`, `pnpm-lock.yaml`, `yarn.lock`, `bun.lock`)
+- the Node version manager and the existing `.nvmrc` or `engines` field
+- whether the project uses TypeScript
+- existing formatter, linter and import-rule setups (ESLint, Biome, Prettier configs, existing scripts)
+- existing `.claude/settings.json` hooks and `.claude/hooks/`
+- whether `jq` is installed
+
+### 2. Report a plan and wait for approval
+
+List each item as one of: add, change, keep, skip. Give the reason for every change and every skip. Show a diff
+against the template for any file that already exists. Do not touch anything before the user approves.
+
+### 3. Apply the approved items
+
+- Use the project's package manager for installs and scripts. Never create a second lockfile.
+- Never overwrite an existing config, script or hook. Merge by hand into `package.json` and `.claude/settings.json`,
+  keeping all existing entries.
+- Treat these as opt-in and name each one in the plan: `.nvmrc` creation, `ensure-node-version.sh` (it changes the nvm
+  default), `@swc/core`, and any replacement of an existing tool.
+- Copy hook scripts as they are unless the project needs a change. Make them executable.
+- Adjust the templates to the project (globs, ignores, source folders) instead of editing the project to fit them.
+
+### 4. Verify (read only)
+
+Run Prettier, oxlint and dependency-cruiser once. Report the result as it is. Existing violations are not a failure of
+the setup:
+
+- Ask the user whether to fix them or record them with the `depcruise:baseline` script.
+- Never weaken a rule to make the run pass.
+- Do not run `--write` or baseline commands as part of verification.
+
+### 5. Report
+
+Tell the user what was added, changed and kept, and what is still open.
+
+## Project-specific changes
+
+- Project rules go below the `Project rules` marker in `.dependency-cruiser.cjs`. Project oxlint rules go in
+  `.oxlintrc.json` `overrides`. Extra checks go in the `checks` array of `check.sh`.
+- Do not copy project-specific changes back into `templates/` unless the user asks to change the shared defaults.
 
 ## Maintaining the defaults
 
-| File                               | Content                                                                                                      |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `templates/prettierrc.json`        | Prettier options.                                                                                            |
-| `templates/oxlintrc.json`          | oxlint categories and ignores.                                                                               |
-| `templates/dependency-cruiser.cjs` | Generic rules (no cycles, no unresolvable imports, no dev dependencies in production code, no test imports). |
-| `templates/hooks/`                 | Hook scripts.                                                                                                |
-| `templates/hooks-settings.json`    | Hook registration merged into `settings.json`.                                                               |
+Edit the files in `templates/` to change the recommendation. Existing projects are not updated automatically. To
+refresh one, run this procedure there and review the diffs.
