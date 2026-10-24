@@ -1,6 +1,6 @@
 # Story Template
 
-File: `docs/FEATURE_NAME_STORY.md`. `FEATURE_NAME` is the feature name in uppercase, with underscores for spaces.
+File: `docs/feature-name-story.md`. `feature-name` is the feature name in lowercase, with dashes for spaces.
 
 - Split the tasks into phases if needed. After each phase, all tests pass and the application starts.
 - Each feature phase has a task to add tests for the code of that phase.

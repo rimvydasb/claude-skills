@@ -15,8 +15,8 @@ For every Mermaid diagram, follow the `mermaid-diagrams` skill.
 
 | Document               | Location                     | Template                                                 |
 |------------------------|------------------------------|----------------------------------------------------------|
-| Story                  | `docs/FEATURE_NAME_STORY.md` | [templates/story.md](templates/story.md)                 |
-| Specification          | `docs/FEATURE_NAME_SPEC.md`  | [templates/spec.md](templates/spec.md)                   |
+| Story                  | `docs/feature-name-story.md` | [templates/story.md](templates/story.md)                 |
+| Specification          | `docs/feature-name-spec.md`  | [templates/spec.md](templates/spec.md)                   |
 | Architecture           | `docs/architecture.md`       | [templates/architecture.md](templates/architecture.md)   |
 | Architecture decisions | `docs/architecture-adr.md`   | [templates/adr.md](templates/adr.md)                     |
 | Open Questions section | Story, spec, or architecture | [templates/open-questions.md](templates/open-questions.md) |
