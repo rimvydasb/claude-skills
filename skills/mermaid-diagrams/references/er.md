@@ -10,11 +10,11 @@ erDiagram
     SCENARIO ||--o{ RISK_SCORE : produces
     SCENARIO {
         uuid id PK
-        string name
+        string name "unique scenario name"
     }
     RISK_SCORE {
         uuid id PK
-        uuid scenario_id FK
-        double value
+        uuid scenario_id FK "owning scenario"
+        double value "normalised 0..1"
     }
 ```
