@@ -19,16 +19,16 @@ script reports no errors.
 
 Pick the row that matches the content, then read its document from `~/.claude/skills/mermaid-diagrams/references/`.
 
-| Content                    | Level | Mermaid type                        | Read                             |
-|----------------------------|-------|-------------------------------------|----------------------------------|
-| Structure                  | High  | `flowchart` as a component diagram  | `component.md`                   |
-| Structure                  | Low   | `classDiagram`                      | `class.md`                       |
-| Deployment topology        | Any   | `flowchart` as a deployment diagram | `deployment.md`                  |
-| Kubernetes or Helm release | Any   | `flowchart` as a deployment diagram | `deployment.md`, `kubernetes.md` |
-| Behavior                   | High  | `flowchart`                         | `flowchart.md`                   |
-| Behavior                   | Low   | `sequenceDiagram`                   | `sequence.md`                    |
-| Lifecycle                  | Any   | `stateDiagram-v2`                   | `state.md`                       |
-| Persistence data model     | Any   | `erDiagram`                         | `er.md`                          |
+| Content                                    | Level | Mermaid type                        | Read                             |
+|--------------------------------------------|-------|-------------------------------------|----------------------------------|
+| Structure                                  | High  | `flowchart` as a component diagram  | `component.md`                   |
+| Structure                                  | Low   | `classDiagram`                      | `class.md`                       |
+| Deployment topology                        | Any   | `flowchart` as a deployment diagram | `deployment.md`                  |
+| Kubernetes or Helm release                 | Any   | `flowchart` as a deployment diagram | `deployment.md`, `kubernetes.md` |
+| Behavior                                   | High  | `flowchart`                         | `flowchart.md`                   |
+| Behavior                                   | Low   | `sequenceDiagram`                   | `sequence.md`                    |
+| Lifecycle                                  | Any   | `stateDiagram-v2`                   | `state.md`                       |
+| Persistence data model, database structure | Any   | `erDiagram`                         | `er.md`                          |
 
 Read `syntax-pitfalls.md` from the same directory before writing a label that contains punctuation, and whenever the
 validation script reports an error you cannot explain.
