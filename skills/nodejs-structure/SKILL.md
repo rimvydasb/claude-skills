@@ -1,6 +1,6 @@
 ---
 name: nodejs-structure
-description: When creating the new Node.js project, consider using the proposed structure in this skill.
+description: When creating the new Node.js project, use the proposed project structure in this skill as a baseline.
 user-invocable: false
 ---
 
@@ -12,6 +12,11 @@ user-invocable: false
 .
 ├── AGENTS.md
 ├── README.md
+├── api-tests
+│   ├── fixtures
+│   ├── utils
+│   ├── tests
+│   └── ...
 ├── app
 │   ├── App.tsx
 │   ├── api
@@ -76,7 +81,8 @@ user-invocable: false
 - Vite, Vite Test
 - TanStack Query
 - Fastify
-- React
+- React for the frontend (`app`)
 - Zod
+- Jest for `api-tests`
 
 > If user specified, prioritize user specified stack instead

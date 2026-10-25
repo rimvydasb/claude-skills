@@ -17,6 +17,14 @@ Structural diagram (component or class diagram).
 
 File tree of the relevant packages and files. Aggregate folders; do not list or explain every file.
 
+## Deployment Diagram (optional)
+
+If new or changed deployment is introduced in this story, add the deployment diagram
+
+## Technology Stack (optional)
+
+If new 3rd party components are introduced in this story, mention them here.
+
 ## Behavior
 
 One behavioral diagram (flowchart or sequence diagram) for each workflow.
