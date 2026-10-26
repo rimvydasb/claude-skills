@@ -67,11 +67,14 @@ user-invocable: false
 │   │   ├── types.ts
 │   │   ├── utils.ts
 │   │   └── ...
-│   └── trading212
-├── ...
+│   ├── (component 2 name)
+│   │   ├── (component 2).ts
+│   │   └── ...
+│   └── ...
+├── vitest.config.ts
 ├── tsconfig.json
 ├── vite.config.ts
-└── vitest.config.ts
+└── ...
 ```
 
 > If user specified, prioritize user specified structure instead

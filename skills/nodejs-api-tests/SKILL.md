@@ -10,7 +10,7 @@ user-invocable: false
    dependency
 2. API Tests should be placed in the folder `api-tests`
 3. API Tests must cover all HTTP return codes and other edge cases
-4. To simulate other services, use WireMock as well as `wiremock-rest-client`. If needed, include WireMock to
+4. To simulate other services, use WireMock as well as `wiremock-captain`. If needed, include WireMock to
    `docker-compose.test.yml` or `docker-compose.dev.yml`
 
 ## Proposed Structure
