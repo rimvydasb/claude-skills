@@ -11,7 +11,7 @@ details. Omit optional sections that have no content.
 
 Purpose of the feature and the problem it solves.
 
-## Structure
+## System View
 
 Structural diagram (component or class diagram).
 
@@ -27,9 +27,11 @@ If new 3rd party components are introduced in this story, mention them here.
 
 ## Behavior
 
-One behavioral diagram (flowchart or sequence diagram) for each workflow.
+One behavioral diagram (flowchart or sequence diagram) for each workflow or service that needs to be implemented.
 
 ## Data Model (optional)
+
+(consider adding ER diagrams or class diagrams)
 
 | Model or type | Purpose | Defined in           |
 |---------------|---------|----------------------|
