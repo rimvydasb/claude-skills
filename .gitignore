@@ -20,3 +20,4 @@ skills/synced
 skills/synced/**
 state
 mcp-*.json
+.claude.json

@@ -37,6 +37,19 @@
         "Redis pub/sub appears in a Rejected line with its reason",
         "No story phase or acceptance criteria content is written"
       ]
+    },
+    {
+      "id": 4,
+      "prompt": "Write docs/architecture/prospect/prospect-update.md: a strategic prospect for this project - where it can win, where it loses, and whether its product bets still hold. Compare with the previous prospect.",
+      "expected_output": "A strategy document written as argument, not as a specification; spec-writing rules are not applied",
+      "files": [],
+      "expectations": [
+        "The spec-writing skill is not loaded, or its STE limits (20-word sentences, 2-sentence paragraphs, modal ban) are not applied",
+        "The central thesis and its strongest counter-argument are argued in prose, with causal chains",
+        "Every score or rating has a stated reason",
+        "Comparison with the previous prospect is present",
+        "Uncertainty is stated explicitly (evidence labels or modals), not hidden in table cells"
+      ]
     }
   ]
 }

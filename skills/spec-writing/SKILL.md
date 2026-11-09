@@ -1,6 +1,6 @@
 ---
 name: spec-writing
-description: Writing standard for stories, specifications, architecture documents, and ADRs - Simplified Technical English, precise wording, fact-style headings, tables vs lists, current-state-only content, story notation, and document templates. Use whenever you write or edit a story, specification, architecture document, or architecture decision record.
+description: Writing standard for stories, specifications, architecture documents, and ADRs - Simplified Technical English, precise wording, fact-style headings, tables vs lists, current-state-only content, story notation, and document templates. Use whenever you write or edit a story, specification, architecture document, or architecture decision record that describes what a system does or will do. Do not use for strategy, prospect, vision, roadmap-rationale, research, market or competitive analysis, or other documents whose purpose is argument and judgment.
 user-invocable: false
 ---
 
@@ -8,6 +8,12 @@ user-invocable: false
 
 Stories, specifications, and architecture documents describe what the system does. The readers are engineers and
 implementing agents. They need facts they can build or verify against, with the minimum amount of text.
+
+The rules below exist for that reader: an agent or engineer who extracts facts and checks code against them. They
+trade explanation for checkability. That trade is wrong for a document whose value is the reasoning itself - a
+strategy, prospect, or analysis needs causal chains, trade-offs, and stated uncertainty. Do not apply this standard
+to such a document, even if it sits next to specifications or the user calls it an architecture document. Inside a
+specification, put the reasoning that must survive in an ADR (Section 5).
 
 For every Mermaid diagram, follow the `mermaid-diagrams` skill.
 
@@ -34,7 +40,9 @@ Read only the template for the document or section you write. Skip the read if t
 
 ## 1. Choose the Form
 
-Use the most structured form that fits the content:
+Use the most structured form that fits the content. A reader scans a table or a diagram faster than prose, and an
+agent maps each row or node to code. Structure fits facts; it does not fit an argument, which is why rationale goes to
+an ADR instead of into a table cell.
 
 | Content                                                    | Form                            |
 |------------------------------------------------------------|---------------------------------|
@@ -56,7 +64,8 @@ Use the most structured form that fits the content:
 
 - Write the document text in ASD-STE100 Simplified Technical English (STE), extended with standard software
   engineering terms. STE applies to the document only, not to your reasoning or your replies to the user.
-- One sentence states one fact. A sentence has at most 20 words. A paragraph has at most 2 sentences.
+- One sentence states one fact. A sentence has at most 20 words. A paragraph has at most 2 sentences. Short
+  sentences make each fact checkable on its own, and an implementing agent cannot misread which clause is the rule.
 - Use active voice and present tense: "The `RiskIndicator` computes the score."
 - Use the exact technical names from the code, or the names the code will use, in backticks.
 - Use one term for one concept in all related documents.
@@ -70,7 +79,8 @@ Use the most structured form that fits the content:
 - Do not use vague words: "basically", "kind of", "sort of", "a little bit", "somewhat", "maybe", "probably", "thing",
   "stuff", "plumbing", "glue", "etc.".
 - Do not use lowercase "should", "could", or "might" to describe behavior. For requirements, use the uppercase RFC 2119
-  keywords `MUST`, `MUST NOT`, `SHOULD`, `MAY`.
+  keywords `MUST`, `MUST NOT`, `SHOULD`, `MAY`. A lowercase modal leaves the reader unsure whether the behavior is
+  required, optional, or a guess; the uppercase keywords have one defined meaning.
 
 ## 4. Write Headings as Facts
 
@@ -86,7 +96,8 @@ question, not a fact. Lead with the actor and the action: **WHO does WHAT**.
 ## 5. Describe the Current State Only
 
 A document specifies the current behavior (in a story: the target behavior). It is not a record of the discussion that
-produced it. We are in the development phase and do not document old features.
+produced it. We are in the development phase and do not document old features. An agent that reads past behavior
+or discussion next to current behavior can implement the wrong one.
 
 - Do not write about the past: "previously", "earlier", "in the past we used", "is carried over unchanged", "legacy",
   "old", "deprecated". These words mark text to review and usually to delete.

@@ -89,3 +89,8 @@ user-invocable: false
 - Jest for `api-tests`
 
 > If user specified, prioritize user specified stack instead
+
+## Additional Content
+
+1. If project involves docker, ensure Dockerfile and compose files are in `docker` folder. In additional, create
+   `scripts/start-in-docker.sh` and `scripts/stop-in-docker.sh` to start and stop the project in docker.
