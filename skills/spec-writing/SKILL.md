@@ -1,6 +1,6 @@
 ---
 name: spec-writing
-description: Writing standard for stories, specifications, architecture documents, and ADRs - Simplified Technical English, precise wording, fact-style headings, tables vs lists, current-state-only content, story notation, and document templates. Use whenever you write or edit a story, specification, architecture document, or architecture decision record that describes what a system does or will do. Do not use for strategy, prospect, vision, roadmap-rationale, research, market or competitive analysis, or other documents whose purpose is argument and judgment.
+description: Writing standard - Simplified Technical English, precise wording, fact-style headings, tables vs lists, current-state-only content, story notation, templates. Use whenever you write or edit a story, specification, architecture document, or ADR that describes what a system does or will do. Not for documents of argument and judgment - strategy, prospect, vision, roadmap rationale, research, market or competitive analysis.
 user-invocable: false
 ---
 
