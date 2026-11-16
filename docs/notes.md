@@ -9,12 +9,6 @@ npm run dev
 
 # To Add
 
-Best 12 GitHub repos to secure your AI-generated code 👇
-
-Open-sourced by OpenAI, Anthropic, NVIDIA, Microsoft, Cloudflare, and more.
-
-Coding agents now ship code faster than any team can review it. These repos scan it, attack it and audit it before it reaches production:
-
 (1) Strix (75.2k ⭐):
 🔗 https://lnkd.in/gThZcnms
 AI hacker that attacks your live app and proves each bug with a real exploit.
@@ -62,10 +56,3 @@ Makes your binaries and JS bundles hard for AI agents to reverse-engineer.
 (12) PyRIT by Microsoft (4.8k ⭐):
 🔗 https://lnkd.in/gFAndtnx
 Attacks your LLM app with jailbreaks and prompt injections before attackers do.
-
-Together they cover your whole stack: code, dependencies, secrets, servers, and the AI agents writing it all. Save this list before your next release.
-
-What would you add?
-
---
-P.S. We’re building the best AI English tutor in the world. Try it to improve your speaking - it’s 15× cheaper than a human one → GetFluently.app
