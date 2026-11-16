@@ -50,6 +50,21 @@
         "Comparison with the previous prospect is present",
         "Uncertainty is stated explicitly (evidence labels or modals), not hidden in table cells"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "Explore the options for adding full-text search to the notes API (Postgres tsvector, Meilisearch, client-side index), pick one, and write the story. Do not implement.",
+      "expected_output": "A story whose fact lane is structured and scannable, and whose reasoning lane keeps the option comparison, the reasons, and the unverified assumptions.",
+      "files": [],
+      "expectations": [
+        "The story has a ## Design Decisions section with a numbered entry that gives the reason for the chosen option",
+        "Each rejected option appears in a Rejected line with why it lost",
+        "The story has a ## Context and Gap section that names existing files",
+        "Every unverified name, version, or value has an '> Assumption:' block that says how to verify it",
+        "No reason, caveat, or trade-off appears only in the chat reply and not in the story",
+        "Tables, diagrams, and task lists are present; reasoning is in labelled blocks or reasoning sections, not in table cells",
+        "scripts/lint.py exits with 0 for the story"
+      ]
     }
   ]
 }

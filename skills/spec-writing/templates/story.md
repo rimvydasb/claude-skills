@@ -9,11 +9,26 @@ File: `docs/feature-name-story.md`. `feature-name` is the feature name in lowerc
 - `## Verification` lists the real commands of the project. Find them in `package.json`, `Makefile`, `Cargo.toml`, CI
   files, or `README.md`. Do not invent commands.
 - Add the E2E phase only if the project has an E2E test setup. Otherwise, omit the phase and the E2E row.
+- The reviewer scans `Summary`, the diagrams, the tables, and `Tasks`. The implementing agent also needs
+  `Context and Gap`, `Design Decisions`, and the `> Rationale:` / `> Assumption:` blocks: do not shorten or omit them
+  to keep the story compact.
+- A `Design Decisions` entry: `### D1: <decision as a fact>`, then `- **Decision:**`, `- **Reason:**`,
+  `- **Rejected:** <alternative> - why`, `- **Revisit if:**` (optional).
 
 ```markdown
 # Story Name
 
 ## Summary
+
+What the story delivers and for whom, in 3 to 6 sentences. Name the main design decision.
+
+## Context and Gap
+
+The existing code and behavior the story starts from, with file paths, and what is missing.
+
+## Design Decisions
+
+### D1: ...
 
 ## Technical Breakdown
 
@@ -24,6 +39,8 @@ File: `docs/feature-name-story.md`. `feature-name` is the feature name in lowerc
 ## Architecture Changes (optional)
 
 ## Out of Scope (optional)
+
+## Limitations (optional)
 
 ## Open Questions (optional)
 
