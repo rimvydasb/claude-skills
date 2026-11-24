@@ -16,7 +16,7 @@ The standard serves both with two lanes:
 
 - **Fact lane** - what the system does or will do. Structured, short, in Simplified Technical English. This is what
   the human scans.
-- **Reasoning lane** - why, what else was considered, what is assumed, what is risky. Plain prose inside labelled
+- **Reasoning lane** - why, what else was considered, what is assumed, what is risky. Plain prose inside labeled
   blocks and sections (Section 5). The human can skip a block by its label; the agent reads it.
 
 **Completeness has priority over every other rule.** The rules below decide *where* and *in what form* information
@@ -79,7 +79,7 @@ to the reasoning lane instead of into a table cell.
 - Numbering does not count as an attribute. Convert a table with only 2 meaningful columns to a list.
 - If a factual explanation needs more than 2 sentences, identify what it describes: a process becomes a diagram;
   elements and their attributes become a table.
-- Do not re-tell a diagram or a table in prose. Do add what the diagram or table cannot show: the reason for a
+- Do not retell a diagram or a table in prose. Do add what the diagram or table cannot show: the reason for a
   non-obvious arrow, the constraint behind a value.
 - A table cell holds a value, not an explanation. If a cell needs a reason, put a `> Rationale:` block under the table
   and name the row.
@@ -94,7 +94,7 @@ to the reasoning lane instead of into a table cell.
 - Use active voice and present tense: "The `RiskIndicator` computes the score."
 - Use the exact technical names from the code, or the names the code will use, in backticks.
 - Use one term for one concept in all related documents.
-- If STE makes a sentence cryptic, write the plain sentence. Clarity has priority over the word list.
+- If STE makes a sentence cryptic, write the plain sentence. Clarity has priority over the wordlist.
 
 ## 3. Use Precise Words in the Fact Lane
 
@@ -139,7 +139,7 @@ needs and no longer.
 | `> Assumption:`    | What is not verified, why you believe it, and the command, file, or URL that verifies it.           |
 | `> Context:`       | The existing code or behavior the fact builds on or replaces, with file paths.                      |
 | `> Risk:`          | What can fail in the implementation, and the fallback.                                              |
-| `> Source:`        | The link or file a non-obvious external fact comes from (a vendor API, a version, a licence change). |
+| `> Source:`        | The link or file a non-obvious external fact comes from (a vendor API, a version, a license change). |
 | `> Clarification:` | A kept explanation from an architect answer.                                                        |
 
 ```markdown
