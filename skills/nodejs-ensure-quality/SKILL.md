@@ -14,7 +14,7 @@ of this skill.
 | Concern             | Recommendation                                                                      | Reference                                                      |
 | ------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------- |
 | Node version        | `.nvmrc` with the Node major the project targets.                                   | -                                                              |
-| Formatting          | Prettier. Ignore build output and `node_modules`.                                   | `templates/prettierrc.json`                                    |
+| Formatting          | Prettier. Ignore build output and `node_modules`. **`proseWrap` must be `never`**: no hard wrap in Markdown. | `templates/prettierrc.json`                  |
 | Linting             | oxlint. `lint` reports errors only, `lint:all` reports everything.                  | `templates/oxlintrc.json`                                      |
 | Architecture rules  | dependency-cruiser: no cycles, no unresolvable imports, no dev dependencies in production code, no test imports. Known violations go to a baseline file. | `templates/dependency-cruiser.cjs` |
 | package.json        | Scripts `format`, `format:check`, `lint`, `lint:all`, `depcruise`, `depcruise:baseline`. | Commands in the script table below the hooks section.      |
@@ -27,7 +27,7 @@ dependency-cruiser needs `@swc/core` only to parse TypeScript. Skip it for JavaS
 | Hook                                   | Script                   | Behavior                                                                                                                    |
 | -------------------------------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
 | `SessionStart`                         | `ensure-node-version.sh` | Makes nvm's default Node match `.nvmrc`. This changes the machine-wide nvm default, so make it opt-in.                      |
-| `PostToolUse` (Edit, Write, MultiEdit) | `format-file.sh`         | Runs `prettier --write`, then `oxlint` on the changed file. Lint errors go back to the agent (exit 2).                      |
+| `PostToolUse` (Edit, Write, MultiEdit) | `format-file.sh`         | Runs `prettier --write` on every changed code and Markdown file, then `oxlint` on code. Lint errors go back to the agent (exit 2). |
 | `Stop`, `SubagentStop`                 | `check.sh`               | Runs `npm run depcruise` and `npm run lint`. Failures go back to the agent. After 3 failed attempts it lets the agent stop. |
 
 `node-env.sh` is sourced by the other scripts. It selects the `.nvmrc` Node through nvm and adds `node_modules/.bin` to
@@ -43,6 +43,16 @@ The package.json scripts the baseline uses:
 | `lint:all`           | `oxlint`                                                                                 |
 | `depcruise`          | `depcruise . --config .dependency-cruiser.cjs --ignore-known --output-type err-long`     |
 | `depcruise:baseline` | `depcruise-baseline . --config .dependency-cruiser.cjs`                                  |
+
+## Markdown: no hard wrap
+
+This rule is mandatory. Do not weaken it.
+
+- `.prettierrc` must set `"proseWrap": "never"`. Prettier then joins each paragraph into one line. Readers such as Obsidian and IntelliJ wrap long lines on their own, and hard-wrapped paragraphs render badly in them.
+- If the project already has a Prettier config with `"always"` or `"preserve"`, change it to `"never"` and list it in the plan as a change.
+- `.md` must stay in the `format` and `format:check` globs, and in the `format-file.sh` case list.
+- The `PostToolUse` hook reformats a Markdown file after every edit. The agent must not spend tokens wrapping, unwrapping or re-flowing Markdown by hand. Write each paragraph as one line and let the hook normalize the file.
+- Verify in step 4 that `prettier --check` on a Markdown file with a long paragraph keeps it on one line.
 
 ## Procedure
 
@@ -64,6 +74,7 @@ against the template for any file that already exists. Do not touch anything bef
 
 ### 3. Apply the approved items
 
+- Set `proseWrap` to `never` in the project's Prettier config, even when the config already exists (see "Markdown: no hard wrap").
 - Use the project's package manager for installs and scripts. Never create a second lockfile.
 - Never overwrite an existing config, script or hook. Merge by hand into `package.json` and `.claude/settings.json`,
   keeping all existing entries.

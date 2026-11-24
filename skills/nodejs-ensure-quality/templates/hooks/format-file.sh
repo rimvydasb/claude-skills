@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # PostToolUse (Edit, Write, MultiEdit): format the file the agent changed, then report its lint errors.
+# Markdown is reformatted after every edit with proseWrap "never" (.prettierrc), so paragraphs stay on one line.
+# The agent does not need to wrap or unwrap Markdown by hand.
 # Exit 2 sends stderr back to the agent, which then fixes the file.
 set -uo pipefail
 
